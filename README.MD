@@ -14,5 +14,9 @@
 -  Cualquier cosa que quieras añadir, como modificaciones o borrado en BD.
     - ❌ Contenido Dockerizado
     - ✅ Las tarjetas se pueden seleccionar y aparecera el contenido de esta en la pagina comprar.
-    - ✅ Las canciones del Home se cargan dinamicamente de BD
+    - ✅ Las canciones de Destacados, Tendencias y Nuevos se cargan dinamicamente de BD
     - ✅ Al pulsar una cancion se reproduce en el iFrame
+    - ❌ En la pagina Conciertos apareceran las entradas compradas 
+    - ❌ El usuario Administrador podrá gestionar los eventos, las canciones y los generos 
+    - ❌ Se pueden registrar nuevos usuarios
+    - ❌ Los usuarios pueden editar configuracion basica del perfil
