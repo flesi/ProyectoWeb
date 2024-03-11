@@ -1,0 +1,21 @@
+# Utiliza la imagen base de PHP-FPM versión 8.3
+FROM php:8.3-fpm
+
+# Instala XDebug y lo habilita
+# RUN pecl install xdebug \
+#     && docker-php-ext-enable xdebug
+RUN docker-php-ext-install mysqli
+RUN apt-get update \
+    && apt-get install -y sendmail libpng-dev \
+    && apt-get install -y libzip-dev \
+    && apt-get install -y zlib1g-dev \
+    && apt-get install -y libonig-dev \
+    && apt-get install -y php-mysqli \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copia los archivos de configuración de XDebug y error_reporting a la ubicación adecuada en el contenedor
+# COPY config/xdebug.ini /usr/local/etc/php/conf.d/
+COPY config/error_reporting.ini /usr/local/etc/php/conf.d/
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /var/www/html

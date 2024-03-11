@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script>
+        
+        function bajarMusica(estilo) {
+            
+            $.ajax({
+            url: 'getMusicBD.php',
+            type: 'POST',
+            data: {"estilo": estilo},
+            // data: {"estilo": estilo,
+            //     "nombre": "Luis",
+            //     "edad":20
+            // },
+            success: function (respuesta) {
+               alert("Datos enviados " + respuesta);
+                var artistas = JSON.parse(respuesta);
+                $.each(artistas, function (index, artista) {
+                    alert(artista.nombreArtista);
+                });
+            },
+            error: function () {
+            console.log('Error al cargar el JSON');
+            }
+            });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="bajarMusica('CLASICA')">Bajar Musica Pop</button>
+</body>
+</html>

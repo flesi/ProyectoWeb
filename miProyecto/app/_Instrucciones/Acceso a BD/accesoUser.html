@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jQuery/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(function () {
+            $('body').on('click','#acceder',function () {
+                let user = $("#user").val()
+                let pass = $("#password").val()
+
+                comprobarUser(user,pass)
+            })
+        })
+
+
+
+        function comprobarUser(user,pass) {    
+            $.ajax({
+            url: 'getUserBD.php',
+            type: 'POST',
+            data: {"user": user,
+                "password": pass,
+            },
+            success: function (respuesta) {
+               alert(respuesta);
+               
+            },
+            error: function () {
+            console.log('Error al cargar el JSON');
+            }
+            });
+        }
+    
+    </script>
+
+</head>
+<body>
+
+    <input type="text" name="user" id="user" placeholder="username">
+    <input type="password" name="password" id="password" placeholder="password">
+    <button name="acceder" id="acceder">Acceder</button>
+
+
+    
+</body>
+</html>

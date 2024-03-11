@@ -1,0 +1,77 @@
+version: '3.8'
+name: proyectowebfinal
+services:
+  # Servicio web con Nginx
+  nginx:
+    # Utiliza la imagen de Nginx versión 1.25
+    image: nginx:1.25
+    #Nombre del contenedor
+    container_name: ngninx
+    # Mapeo del puerto 8001 del host al puerto 80 del contenedor
+    ports:
+      - "80:80"
+    # Volumen para montar los archivos de la aplicación y la configuración de Nginx
+    volumes:
+      - ./app:/etc/nginx/html
+      - ./docker/nginx/config/default.conf:/etc/nginx/conf.d/default.conf
+    # Dependencia del servicio PHP para asegurar que esté iniciado antes de Nginx
+    depends_on:
+      - db
+      - php
+    networks:
+      - proyecto-network
+
+  # Servicio PHP-FPM
+  php:
+  # Construye la imagen utilizando el Dockerfile en ./docker/php
+    build: 
+      context: ./docker/php
+    # Nombre del contenedor
+    container_name: php-fpm
+    # Volumen para montar los archivos de la aplicación PHP
+    volumes:
+      - ./app:/etc/nginx/html
+    depends_on:
+      - db
+    networks:
+        - proyecto-network
+
+  db:
+        image: mysql:8.0
+        container_name: mysql
+        ports: 
+            - "3306:3306"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: dbname
+            MYSQL_ROOT_PASSWORD: test
+            MYSQL_USER: lamp
+            MYSQL_PASSWORD: lamp
+        volumes:
+            - ./docker/mysql/Database:/docker-entrypoint-initdb.d
+            - ./docker/mysql/conf:/etc/mysql/conf.d
+            - db_data:/var/lib/mysql
+        networks:
+          - proyecto-network
+  
+  phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        depends_on: 
+            - db
+        networks:
+            - proyecto-network
+        ports:
+            - 8900:80
+        
+        environment:
+            MYSQL_USER: lamp
+            MYSQL_PASSWORD: lamp
+            MYSQL_ROOT_PASSWORD: test 
+volumes:
+    db_data: 
+       driver: local
+
+networks:
+    proyecto-network:
+        driver: bridge

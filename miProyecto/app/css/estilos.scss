@@ -1,0 +1,186 @@
+// Aqui se crean las variables
+// $primary: #c29938;
+$prueba: #b85cc0;
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+
+
+// Aqui se modifica el tema por defecto con el nuevo color
+$custom-colors: (
+    "prueba": $prueba,
+    "nuevito": #445532
+);
+
+$theme-colors: map-merge($theme-colors , $custom-colors );
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Aqui van los mixins
+.borde-outline-verde{
+    @include button-outline-variant($color: #0cc0b9,$color-hover: white);
+}
+
+.btn-descubre{
+    @include button-variant($background: #FA054C,$border: #FA054C);
+}
+
+// NAV
+
+#logoUser{
+    width: 40px;
+    height: 40px;
+}
+
+.dropdown-item:hover{
+    background-color: white;
+    color: black;
+}
+
+
+
+
+// PAGINA HOME
+
+#hero{
+    background-image: url(../images/14.jpg);
+    background-size: cover; /* Para cubrir completamente el contenedor */
+    background-position: 20% 30%; /* Posición del fondo */
+    min-height: 40vh; /* Altura mínima del héroe, aquí usamos vh (viewport height) */
+}
+.navArtistas .active { 
+    color: white; 
+ 
+  } 
+   
+
+.navArtistas .active { 
+    color: red !important; 
+    background-color: transparent !important; 
+  } 
+   
+  .navArtistas .active::after { 
+    content: ''; 
+    background-color: red; 
+    height: 2px; 
+    display: block; 
+    margin-top: 5px; 
+  }
+
+.cancion {
+    background: linear-gradient(90deg, rgba(0,0,4,1) 0%,
+    rgba(24,49,82,1) 15%, rgba(25,51,83,1) 67%, rgba(0,212,255,0) 100%)
+}
+
+.cancion:hover{
+    transform: translateY(-2%);
+    border: #666 1px solid;
+}
+
+.imagenCancion{
+    width: 50px;
+    height: 50px;
+}
+
+.btnGeneroMusical .activado{
+    border-top-width: 5px;
+}
+
+
+
+// PAGINA COMPRAR
+
+#headerComprar{
+    position: relative;
+}
+
+.filtro { 
+    content: ""; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+      background-image: url(../images/Niall.webp); 
+      background-repeat: no-repeat; 
+      background-position: top; 
+      background-size: cover; 
+      background-position-y: -80px;  
+      filter: blur(8px) brightness(50%); 
+      z-index: -1; 
+}
+
+#reservarAsientos {
+    background-image: url('../images/14.jpg');
+    min-height: 30vh;
+    background-position: 20% 30%;
+    background-size: cover;
+}
+.conciertos img{
+    width: 100px;
+}
+.escenario {
+	background-color: #666;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	margin-bottom: 20px;
+	box-shadow: 0 0 8px #828181;
+}
+.asientos {
+	display: flex;
+	justify-content: center;	
+}
+.asiento {
+	margin: 5px;
+	cursor: pointer;
+	background-color: #CCC;
+	width: 30px;
+	height: 30px;
+	margin: 3px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	cursor: pointer;	
+}
+.ocupado {
+	background-color: #ff5252; /* Cambia el color al seleccionar */
+}
+
+.asiento:not(.ocupado):hover {
+    cursor:default;
+    transform: scale(1.2);
+}
+
+//PAGINA DESCUBRE
+.estadio {
+    position: relative;
+    color: white;
+}
+
+.imagenEstadioDescubre{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+// .fondoConciertoDescubre{ 
+//     content: ""; 
+//     position: absolute; 
+//     top: 0; 
+//     left: 0; 
+//     right: 0; 
+//     bottom: 0; 
+//     background-image: url(../images/WiZink.jpg); 
+//     background-repeat: no-repeat; 
+//     background-position: top; 
+//     background-size: cover; 
+//     filter: blur(4px) brightness(50%); 
+//     z-index: -1; 
+//   }
+
+// FOOTER
+
+footer{
+    background-color: #22252a;
+}
