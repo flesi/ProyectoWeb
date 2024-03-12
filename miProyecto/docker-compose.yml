@@ -23,11 +23,7 @@ services:
 
   # Servicio PHP-FPM
   php:
-  # Construye la imagen utilizando el Dockerfile en ./docker/php
-    build: 
-      context: ./docker/php
-    # Nombre del contenedor
-    container_name: php-fpm
+    image: php:8.3-fpm
     # Volumen para montar los archivos de la aplicación PHP
     volumes:
       - ./app:/etc/nginx/html

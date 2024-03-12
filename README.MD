@@ -8,15 +8,20 @@
 
 ### Cosas para subir del 5:
 
-- <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Almacenar los asientos ocupados en BD y que al volver a entrar en la página busque los asientos ocupados y los ponga en rojo.
+- ✅ Almacenar los asientos ocupados en BD y que al volver a entrar en la página busque los asientos ocupados y los ponga en rojo.
 - ✅ Crear una tabla en BD con varios usuarios y que si no existe el usuario en BD, no deje hacer Login.
 
 
 -  Cualquier cosa que quieras añadir, como modificaciones o borrado en BD.
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Contenido Dockerizado
-    - ✅ Las tarjetas se pueden seleccionar y aparecera el contenido de esta en la pagina comprar.
+
+    - ✅ Las tarjetas (eventos) se pueden seleccionar y aparecera el contenido de esta en la pagina comprar.
     - ✅ Las canciones de Destacados, Tendencias y Nuevos se cargan dinamicamente de BD
     - ✅ Al pulsar una cancion se reproduce en el iFrame
+    - ✅ 3 Roles Usuario (Invitado, Usuario y Administrador)
+    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Los Eventos se reservaran antes de ser comprados
+    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden comprar entradas para varios eventos simultaneamente 
+    
+    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Contenido Dockerizado
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El usuario Administrador podrá gestionar los eventos, las canciones y los generos 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios

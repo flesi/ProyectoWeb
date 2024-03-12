@@ -6,9 +6,9 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
 
 
     $host = "localhost";
-    $username = "lamp";
-    $password = "test";
-    $database = "musicex";
+    $username = "root";
+    $password = "";
+    $database = "MusicEx";
     $conn=mysqli_connect($host,$username,$password,$database);
 
 
@@ -21,10 +21,11 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
 
     if ($result->num_rows > 0) {
         // Obtén el primer resultado como un array asociativo
-        $usuario = $result->fetch_assoc();
-        
+        // $usuario = $result->fetch_assoc();
+        $datoUsuario = $result->fetch_all(MYSQLI_ASSOC); // Usa fetch_all para obtener todos los resultados y transformarlos en un array asociativo
+        echo json_encode($datoUsuario);
         // echo "Bienvenido " . $usuario["user"];
-        echo true;    
+        // echo true;    
     } else {
         echo false;
         // echo "Usuario Incorrecto";

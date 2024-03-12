@@ -1,9 +1,9 @@
 <?php
 
 $host = "localhost";
-$username = "lamp";
-$password = "test";
-$database = "musicex";
+$username = "root";
+$password = "";
+$database = "MusicEx";
 $conn=mysqli_connect($host,$username,$password,$database);
 
 //Coger todas las filas

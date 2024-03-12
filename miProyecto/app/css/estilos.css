@@ -12204,7 +12204,7 @@ textarea.form-control-lg {
   min-height: 40vh; /* Altura mínima del héroe, aquí usamos vh (viewport height) */
 }
 
-.navArtistas .active {
+.navArtistas .nav-link {
   color: white;
 }
 
@@ -12241,6 +12241,7 @@ textarea.form-control-lg {
 
 #headerComprar {
   position: relative;
+  height: 40vh;
 }
 
 .filtro {
@@ -12259,8 +12260,8 @@ textarea.form-control-lg {
   z-index: -1;
 }
 
-#reservarAsientos {
-  background-image: url("../images/14.jpg");
+#reservaAsientos {
+  background-image: url(../images/14.jpg);
   min-height: 30vh;
   background-position: 20% 30%;
   background-size: cover;
@@ -12298,6 +12299,14 @@ textarea.form-control-lg {
 
 .ocupado {
   background-color: #ff5252; /* Cambia el color al seleccionar */
+}
+
+.reservado {
+  background-color: #ffc107;
+}
+
+.comprado {
+  background-color: #007bff;
 }
 
 .asiento:not(.ocupado):hover {

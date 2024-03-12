@@ -1,17 +1,17 @@
 $(function () {
 
     // CARGAMOS HOME AL CARGAR LA PAGINA
-    $.ajax({
-        url: './html/home.html',
-        type: 'GET',
-        success: function(respuesta) {
-            $("#contenido").html(respuesta)
-            cargarCanciones()
-        },
-        error: function() {
-            alert("Error al cargar el JSON")
-        }
-    })    
+    // $.ajax({
+    //     url: './html/home.html',
+    //     type: 'GET',
+    //     success: function(respuesta) {
+    //         $("#contenido").html(respuesta)
+    //         cargarCanciones()
+    //     },
+    //     error: function() {
+    //         alert("Error al cargar el JSON")
+    //     }
+    // })    
 
 
 
@@ -65,44 +65,11 @@ $(function () {
 
 
 
-// BOTON COMPRAR (SOLO FUNCIONA CON .CARD SELECCIONADO)
-
-    $("#comprar").addClass("disabled")
-    let imagenArtista
-    let tituloArtista
-    let lugarConcierto
-    let fechaEvento
-    // SELECCIONAMOS .CARD (EVENTO)
-    $('body').on('click','.card',function () {
-        $(".card").each(function () {
-            $(this).css("border","0px solid black")    
-        })
-
-        $(this).css("border","4px solid #183152")
-        $("#comprar").removeClass("disabled")
-        
-        tituloArtista = $(this).find(".tituloArtista").text()
-        imagenArtista = $(this).find(".imagenArtista").attr("src")
-        lugarConcierto = $(this).find(".lugarConcierto").text()
-        fechaEvento = $(this).find(".fechaEvento").text()
-    })
-
-    // PULSAMOS BOTON COMPRAR
-    $('body').on('click','#comprar',function () {
-        $.ajax({
-            url: './html/comprar.html',
-            type: 'GET',
-            success: function(respuesta) {
-                $("#contenido").html(respuesta)
-                eventoSeleccionadoParaComprar(tituloArtista,imagenArtista,lugarConcierto,fechaEvento)
-            },
-            error: function() {
-                alert("Error al cargar el JSON")
-            }
-        })    
-    })
 
 
+
+
+     // ########################################################################
 
 
 
@@ -111,21 +78,31 @@ $(function () {
     let isLoggedIn = false;
     if (!isLoggedIn) {
         $("#menuUser").hide()
+        $("#administrar").hide()
     }
 
     $('body').on('click','#acceso',function () {
         $('#exampleModal').modal('show');
-        $('body').on('click','#entrar',function () {
+        $('body').off('click', '#entrar').on('click', '#entrar', function () {
             let user = $("#email").val().split("@")[0];
-            let password = $("#password").val()
-            comprobarUsusario(user,password)
-        })
+            let password = $("#password").val();
+            comprobarUsusario(user, password);
+        });
       })
 
-
+      // CERRAR SESSION
       $('body').on('click','#cerrarSesion',function () {
-        $("#menuUser").hide()
+            $("#menuUser").hide()
             $("#acceso").show()
+            $("#administrar").hide()
+            isLoggedIn = false;
+            idUsuario = ""
+            username = ""
+            nombreUsuario = ""
+            apellidoUsuario = ""
+            imagenUsuario = ""
+            rolUsuario = "invitado"
+            
       })
 
 
@@ -133,12 +110,17 @@ $(function () {
 
 
 
-
+// ########################################################################
 
       // CANCIONES E IFRAME
-      let player;
+
+
+
+
 
       // Carga la API de YouTube
+      let player;
+
       if (!window.YT) {
           let tag = document.createElement('script');
           tag.src = "https://www.youtube.com/iframe_api";
@@ -176,9 +158,8 @@ $(function () {
         // alert($('#videoYT iframe').attr("src"))
         // $('#videoYT iframe').attr("src","https://www.youtube.com/embed/JGwWNGJdvx8?si=AWMe6NHQrgQbZFK2")
         // alert($('#videoYT iframe').attr("src"))
-        
-
       })
+
 
       // BOTONES GENERO MUSICAL
       $('body').on('click','.btnGeneroMusical',function () {
@@ -186,24 +167,205 @@ $(function () {
       })
 
 
+/* *********************************************************************************************** */
+
 
     // PAGINA COMPRAR
-    $('body').on('click','.asiento',function () {
-        alert($(this).text())
+    // BOTON COMPRAR (SOLO FUNCIONA CON .CARD SELECCIONADO)
+
+    $("#comprar").addClass("disabled")
+    let idArtista
+    let imagenArtista
+    let tituloArtista
+    let lugarConcierto
+    let fechaEvento
+    // SELECCIONAMOS .CARD (EVENTO)
+    $('body').on('click','.card',function () {
+        $(".card").each(function () {
+            $(this).css("border","0px solid black")    
+        })
+
+        $(this).css("border","4px solid #183152")
+        $("#comprar").removeClass("disabled")
+        idArtista = $(this).find(".idArtista").text()
+        tituloArtista = $(this).find(".tituloArtista").text()
+        imagenArtista = $(this).find(".imagenArtista").attr("src")
+        lugarConcierto = $(this).find(".lugarConcierto").text()
+        fechaEvento = $(this).find(".fechaEvento").text()
+    })
+
+    // PULSAMOS BOTON COMPRAR
+    $('body').on('click','#comprar',function () {
+        $.ajax({
+            url: './html/comprar.html',
+            type: 'GET',
+            success: function(respuesta) {
+                $("#contenido").html(respuesta)
+                eventoSeleccionadoParaComprar(tituloArtista,imagenArtista,lugarConcierto,fechaEvento)
+                cargarInfoEntradas(idArtista)
+            },
+            error: function() {
+                alert("Error al cargar el JSON")
+            }
+        })    
+    })
+
+    // BOTON PARA RESERVAR EL EVENTO PARA NOSOTROS ()
+
+    $('body').on('click','.botonReservar',function () {
+        let nombreReserva = $('.nombre').val()
+        let apellidosReserva = $('.apellidos').val()
+        let butacaReserva = $('.butaca').text()
+        let imagenArtistaReserva = $("#imagenArtista").attr("src")
+        $('.asiento').each(function () {
+            if ($(this).hasClass('reservado')) {
+                $(this).removeClass('reservado')
+                $(this).addClass('comprado')
+            }
+        })
+
+        $("#reservas").append(filaReserva(imagenArtistaReserva,nombreReserva,apellidosReserva,butacaReserva))
+        arrReservas.push(idArtista+","+idUsuario+","+butacaReserva+","+nombreReserva+","+apellidosReserva+";")
+        // nuevaReserva(nombreReserva,apellidosReserva,butacaReserva)
     })
 
 
+
+
+    // MODIFICAMOS LOS ASIENTOS AL PULSARLOS 
+    // LOS ASIENTOS TIENEN 
+    // 1: Disponible -> El Asiento esta Disponible y se puede reservar (GRIS)
+    // 2: Reservado -> El Asiento se marca como reservado (AMARILLO)
+    // 3: Comprado -> Nosotros somos los propietarios del asiento (VERDE)
+    // 4: Ocupado -> El Asiento esta reservado por otro usuario (ROJO)
+
+    $('body').on('click','.asiento',function () {
+        // alert($(this).hasClass("ocupado"))
+        $('.asiento').each(function () {
+            if($(this).hasClass("reservado")){
+                $(this).removeClass("reservado")
+            }    
+        })
+
+        if(!$(this).hasClass("ocupado")){
+            $(this).addClass("reservado")
+            $('.butaca').text($(this).text())
+        } else {
+            alert("Ese asiento ya esta ocupado!")
+        }
+    })
+
+
+
+
+
+
+
 })
+
+/* FIN DE 
+
+$(function ({    
+})
+
+*/
+
+// MIS FUNCIONES
+
+
+// ########################################################################
+// ########################################################################
+// ########################################################################
+
+
+// PAGINA COMPRAR
+
+
+
+// ESTA FUNCION LA CARGAMOS AL ENTRAR EN LA PAGINA COMPRAR 
+// MODIFICAMOS LOS DATOS DE LA PAGINA COMPRAR POR LOS PASADOS EN PARAMETROS
+// ESTOS PARAMETROS SE OBTIENEN AL SELECCIONAR UNA TARJETA DE EVENTO EN LA PAGINA HOME
 
 function eventoSeleccionadoParaComprar(tituloArtista,imagenArtista,lugarConcierto,fechaEvento) {
     $('#tituloArtista').text(tituloArtista)
     $('#imagenArtista').attr("src",imagenArtista)
     $('#lugarConcierto').text(lugarConcierto)
     $('#fechaEvento').text(fechaEvento)
+    $(".nombre").val(nombreUsuario)
+    $(".apellidos").val(apellidoUsuario)
+    $(".filtro").css({backgroundImage : 'url('+imagenArtista+')'})
+    
+}
+
+// OBTENEMOS LA INFORMACION DE LAS ENTRADAS RESERVADAS PARA ESE EVENTO
+// SI LA ENTRADA ESTA OCUPADA SE AÑADIRA AL CLASE OCUPADO
+function cargarInfoEntradas(idEvento){
+    $.ajax({
+        url: './php/getInfoEvento.php',
+        type: 'POST',
+        data: {"idArtista": idEvento,
+            "getCantiones": "getCanciones"
+        },
+        // data: {"estilo": estilo,
+        //     "nombre": "Luis",
+        //     "edad":20
+        // },
+        success: function (respuesta) {
+        //    alert("Datos enviados " + respuesta);
+            // alert(respuesta)
+            // $(".filaArtistas").html("")
+            var infoEntradas = JSON.parse(respuesta);
+            $.each(infoEntradas, function (index, entrada) {
+                // alert(entrada.butaca)
+                $(".asiento").each(function () {
+                    if ($(this).text() == entrada.butaca) {
+                        $(this).addClass('ocupado')
+                    }
+                })
+
+            })
+            
+        },
+        error: function () {
+        console.log('Error al cargar el JSON');
+        }
+        });   
+}
+
+
+function filaReserva(imagen, nombre, apellidos, butaca) {
+    let div = $("<div>").addClass('row butacasReservadas border-bottom border-secondary p-1')
+    let fila = div.html("<div class='offset-1 col-1 d-flex align-items-center'>\
+                <img src=' " + imagen + "' class='img-fluid'>\
+            </div>\
+            <div class='col-7 fw-medium'>\
+                <p class='fs-3 mb-0'>Nombre: <span>" + nombre + "</span></p>\
+                <p class='fs-4 mb-0 text-secondary'>Apellidos: <span>"+ apellidos + "</span></p>\
+                <p class='fs-4 text-secondary'>Butaca: <span>"+ butaca + "</span></p>\
+            </div>\
+            <div class='col-2 d-flex align-items-center'>\
+                <button class='bg-transparent border-0'><i class='papeleraBorrar bi bi-trash-fill fs-2 text-danger'></i></button>\
+                <button class='bg-transparent border-0'><i class='modificarNombre bi bi-pencil-square fs-2 text-primary'></i></button>\
+            </div>\
+        </div>")
+    return fila
 }
 
 
 
+
+
+
+// ########################################################################
+// ########################################################################
+
+
+// PAGINA DESCUBRE
+
+
+
+
+// ESTA FUNCION SE ENCARGA DE CARGAR LOS ESTADIOS DE UN JSON
 
 function cargarEstadios() {
     $.ajax({
@@ -269,6 +431,20 @@ function cargarEstadios() {
 
 }
 
+
+
+
+// ########################################################################
+// ########################################################################
+
+
+
+// PAGINA HOME
+
+
+
+// ESTA FUNCION SE ENCARGA DE OBTENER LOS DATOS DE LOS EVENTOS PARA GENERAR LAS TARJETAS
+
 function gerneroMusica(estilo) {
     $.ajax({
         url: './php/getMusicBD.php',
@@ -298,7 +474,7 @@ function gerneroMusica(estilo) {
                             <i class="bi-people-fill"></i><span> ${artista.seguidores} </span>
                             <i class="bi-bookmark-star"></i></p>
                         </div>
-        
+                        <p hidden class="idArtista">${artista.id_artista}</p>
                         <h5 class="card-title tituloArtista">${artista.nombreArtista}</h5>
                         <p class="mb-0 lugarConcierto">${artista.lugarConcierto}</p>
                     </div>
@@ -320,7 +496,21 @@ function gerneroMusica(estilo) {
 }
 
 
+// GESTION DE USUARIOS
 
+// ESTABLECEMOS LAS VARIABLES QUE USAREMOS A 0 PARA LOS INVITADOS 
+let idUsuario = ""
+let username = ""
+let nombreUsuario = ""
+let apellidoUsuario = ""
+let imagenUsuario = ""
+let rolUsuario = "invitado"
+let arrReservas = []
+
+// COMPROBAMOS EN BD SI EL USUARIO Y PASS SON CORRECTOS, EN CASO DE SER CORRECTOS
+// OCULTA EL BOTON DE ACCESO, MUESTRA EL MENU DE USUARIO, MUESTRA EL NOMBRE DEL USUARIO Y
+// LA IMAGEN DEL USUARIO (BD) EN EL MENU
+// SI EL USUARIO TIENE EL ROL DE ADMINISTRADOR SE MUESTRA EL BOTON DE ADMINISTRAR
 function comprobarUsusario(user,pass) {
     $.ajax({
         url: './php/getUser.php',
@@ -329,14 +519,30 @@ function comprobarUsusario(user,pass) {
             "password": pass,
         },
         success: function (respuesta) {
-            if(respuesta>=1){
-                alert("Bienvenido " + user)
+            
+            if (respuesta) {
+                alert(respuesta)
+                var datosUsuario = JSON.parse(respuesta);
+                $.each(datosUsuario, function (index, dato) {
+                    idUsuario = dato.id_usuarios
+                    nombreUsuario = dato.nombre_usuario
+                    apellidoUsuario = dato.apellido_usuario
+                    imagenUsuario = dato.imagenUsuario
+                    rolUsuario = dato.rol_usuario
+                })
+                
                 $('#modalbtn').text($("#email").val().split("@")[0])
                 $(".dropdown-toggle span").text("Hola, " + $("#email").val().split("@")[0])
                 $("#menuUser").show()
-                $("#acceso").hide()    
+                $("#logoUser").attr("src",imagenUsuario)
+                $("#acceso").hide()
+                $('#exampleModal').modal('hide');
+                if (rolUsuario=="administrador") {
+                    $("#administrar").show()
+                }
+                
             } else {
-                alert("Usuario o Contraseña Incorrectos")
+                alert("Usuario o contraseña incorrectos")
             }
         },
         error: function () {
@@ -344,6 +550,12 @@ function comprobarUsusario(user,pass) {
         }
         });
 }
+
+
+
+
+// ESTA FUNCION SE ENCARGA DE OBTENER LAS CANCIONES DE BD Y MOSTRARLAS
+// EN DESTACADOS, TENDENCIAS O NUEVOS SEGUN SU CATEGORIA
 
 function cargarCanciones() {
     $.ajax({
@@ -405,6 +617,4 @@ function cargarCanciones() {
         }
         });   
 }
-function cargarReproductorYT(){
-   
-}
+

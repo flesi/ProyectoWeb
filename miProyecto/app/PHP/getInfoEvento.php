@@ -1,8 +1,6 @@
 <?php
-if(isset($_POST['estilo'])){
-    $estilo = $_POST['estilo'];
-   // echo("todoOK $estilos");
 
+$idArtista = $_POST['idArtista'];
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -10,9 +8,10 @@ $database = "MusicEx";
 $conn=mysqli_connect($host,$username,$password,$database);
 
 //Coger todas las filas
-$sql="SELECT * FROM artistas WHERE estilo = ?";
+$sql = "SELECT * FROM entradas WHERE id_artista = ?";
+    
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $estilo); // 's' especifica que el parámetro es una cadena (string)
+$stmt->bind_param("s", $idArtista); // 's' especifica que el parámetro es una cadena (string)
 
 /*Para buscar por varios parámetros  
 $sql = "SELECT * FROM artistas WHERE estilo = ? AND nombre = ? AND edad = ?";
@@ -29,8 +28,8 @@ $result = $stmt->get_result();
 
 
 if ($result->num_rows > 0) {
-    $artistas = $result->fetch_all(MYSQLI_ASSOC); // Usa fetch_all para obtener todos los resultados y transformarlos en un array asociativo
-    echo json_encode($artistas);
+    $entradasEvento = $result->fetch_all(MYSQLI_ASSOC); // Usa fetch_all para obtener todos los resultados y transformarlos en un array asociativo
+    echo json_encode($entradasEvento);
 } else {
     echo false;
 }
@@ -38,5 +37,6 @@ if ($result->num_rows > 0) {
 // Cerrar la declaración preparada y la conexión
 $stmt->close();
 $conn->close();
-}
+
+
 ?>
