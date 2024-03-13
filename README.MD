@@ -31,7 +31,8 @@
             -Ocupado: El Asiento esta ocupado por otra persona
     
     - ✅ Se pueden comprar entradas para varios eventos simultaneamente 
-    
+    - ✅ Se crea una nueva estructura de base de datos
+    <img src="images/database.png" alt=""/>
     
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 

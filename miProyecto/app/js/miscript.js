@@ -106,7 +106,8 @@ $('#searchInput').autocomplete({
         $('body').off('click', '#entrar').on('click', '#entrar', function () {
             let user = $("#email").val().split("@")[0];
             let password = $("#password").val();
-            comprobarUsusario(user, password);
+            accesoUsuario(user, password);
+            idUsuario = ""
         });
       })
 
@@ -128,6 +129,9 @@ $('#searchInput').autocomplete({
       $('body').on('click','.registrar',function () {
         $('#loginModal').modal('hide');
         $('#registerModal').modal('show');
+        $('userRegister').on('keyup',function () {
+            
+        })
       })
 
 
@@ -185,10 +189,11 @@ $('body').on('click','.btnGeneroMusical',function () {
 
       $('body').on('click','.cancion',function () {
         
-        // let videoId = $(this).find(".videoURL").text(); // ID del video de YouTube
+        let videoYT = $(this).find(".videoURL").text(); // ID del video de YouTube
+        // $('#videoYT').html(videoYT)
         // player.loadVideoById(videoId);
         // alert($('#videoYT iframe').attr("src"))
-        // $('#videoYT iframe').attr("src","https://www.youtube.com/embed/JGwWNGJdvx8?si=AWMe6NHQrgQbZFK2")
+        $('#videoYT iframe').attr("src",videoYT)
         // alert($('#videoYT iframe').attr("src"))
       })
 
@@ -545,7 +550,7 @@ function cargarEstadios() {
 // OCULTA EL BOTON DE ACCESO, MUESTRA EL MENU DE USUARIO, MUESTRA EL NOMBRE DEL USUARIO Y
 // LA IMAGEN DEL USUARIO (BD) EN EL MENU
 // SI EL USUARIO TIENE EL ROL DE ADMINISTRADOR SE MUESTRA EL BOTON DE ADMINISTRAR
-function comprobarUsusario(user,pass) {
+function accesoUsuario(user,pass) {
     $.ajax({
         url: './php/getUser.php',
         type: 'POST',
@@ -555,10 +560,11 @@ function comprobarUsusario(user,pass) {
         success: function (respuesta) {
             
             if (respuesta) {
-                alert(respuesta)
+                // alert(respuesta)
                 var datosUsuario = JSON.parse(respuesta);
                 $.each(datosUsuario, function (index, dato) {
-                    idUsuario = dato.id_usuario
+                    idUsuario = dato.id_usuarios
+                    alert(idUsuario)
                     nombreUsuario = dato.nombre_usuario
                     apellidoUsuario = dato.apellido_usuario
                     imagenUsuario = dato.imagenUsuario
