@@ -12301,17 +12301,26 @@ textarea.form-control-lg {
   background-color: #ff5252; /* Cambia el color al seleccionar */
 }
 
-.reservado {
-  background-color: #ffc107;
-}
-
-.comprado {
-  background-color: #007bff;
-}
-
 .asiento:not(.ocupado):hover {
   cursor: default;
   transform: scale(1.2);
+}
+
+.asiento:not(.comprado):hover {
+  cursor: default;
+  transform: scale(1.2);
+}
+
+.seleccionado {
+  background-color: #ffc107;
+}
+
+.reservado {
+  background-color: #007bff;
+}
+
+.comprado {
+  background-color: #157347;
 }
 
 .estadio {

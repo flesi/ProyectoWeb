@@ -12,7 +12,7 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
     $conn=mysqli_connect($host,$username,$password,$database);
 
 
-    $sql = "SELECT * FROM `usuarios` WHERE user = ? AND password = ?";
+    $sql = "SELECT * FROM `usuarios` WHERE user = ? AND password = ?  AND `id_usuarios` != 1";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $user, $pass);
     $stmt->execute();

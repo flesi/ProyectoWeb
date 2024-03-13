@@ -1,6 +1,9 @@
 <?php
 
-$idArtista = $_POST['idArtista'];
+//  ESTO CARGARA LAS ENTRADAS QUE YA ESTAN COMPRADAS PARA UN DETERMINADO EVENTO
+
+
+$idEvento = $_POST['idEvento'];
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -8,10 +11,10 @@ $database = "MusicEx";
 $conn=mysqli_connect($host,$username,$password,$database);
 
 //Coger todas las filas
-$sql = "SELECT * FROM entradas WHERE id_artista = ?";
+$sql = "SELECT * FROM entradas WHERE id_evento = ? ";
     
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $idArtista); // 's' especifica que el parámetro es una cadena (string)
+$stmt->bind_param("s", $idEvento); // 's' especifica que el parámetro es una cadena (string)
 
 /*Para buscar por varios parámetros  
 $sql = "SELECT * FROM artistas WHERE estilo = ? AND nombre = ? AND edad = ?";

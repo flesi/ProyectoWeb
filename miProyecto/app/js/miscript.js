@@ -1,3 +1,12 @@
+    // ESTABLECEMOS LAS VARIABLES QUE USAREMOS A 0 PARA LOS INVITADOS 
+    let idUsuario = "1"
+    let username = ""
+    let nombreUsuario = ""
+    let apellidoUsuario = ""
+    let imagenUsuario = ""
+    let rolUsuario = "invitado"
+    let arrReservas = []
+
 $(function () {
 
     // CARGAMOS HOME AL CARGAR LA PAGINA
@@ -40,8 +49,7 @@ $(function () {
         })    
     })
 
-
-
+      
 
 
     // ACCESO DESCUBRE
@@ -62,14 +70,22 @@ $(function () {
 
 
 
+// AUTOCOMPLETAR CUADRO DE BUSQUEDA
+
+$('body').on('click','#searchButton',function () {
+    alert($('#searchInput').val())
+})
+    
+$('#searchInput').autocomplete({
+    source: './php/autocompletar.php'
+});
 
 
 
+// ########################################################################
+//      GESTION DE USUARIOS
 
 
-
-
-     // ########################################################################
 
 
 
@@ -82,7 +98,7 @@ $(function () {
     }
 
     $('body').on('click','#acceso',function () {
-        $('#exampleModal').modal('show');
+        $('#loginModal').modal('show');
         $('body').off('click', '#entrar').on('click', '#entrar', function () {
             let user = $("#email").val().split("@")[0];
             let password = $("#password").val();
@@ -105,18 +121,27 @@ $(function () {
             
       })
 
+      $('body').on('click','.registrar',function () {
+        $('#loginModal').modal('hide');
+        $('#registerModal').modal('show');
+      })
 
+
+      
+// PAGINA HOME
+
+// BOTONES PARA CARGAR LOS DISTINTOS EVENTOS SEGUN SU GENERO
+
+$('body').on('click','.btnGeneroMusical',function () {
+    gerneroMusica($(this).text())
+  })
 
 
 
 
 // ########################################################################
 
-      // CANCIONES E IFRAME
-
-
-
-
+      // GESTION DEL IFRAME DINAMICO CON LAS CANCIONES
 
       // Carga la API de YouTube
       let player;
@@ -161,10 +186,6 @@ $(function () {
       })
 
 
-      // BOTONES GENERO MUSICAL
-      $('body').on('click','.btnGeneroMusical',function () {
-            gerneroMusica($(this).text())
-      })
 
 
 /* *********************************************************************************************** */
@@ -174,7 +195,7 @@ $(function () {
     // BOTON COMPRAR (SOLO FUNCIONA CON .CARD SELECCIONADO)
 
     $("#comprar").addClass("disabled")
-    let idArtista
+    let idEvento
     let imagenArtista
     let tituloArtista
     let lugarConcierto
@@ -187,7 +208,7 @@ $(function () {
 
         $(this).css("border","4px solid #183152")
         $("#comprar").removeClass("disabled")
-        idArtista = $(this).find(".idArtista").text()
+        idEvento = $(this).find(".idEvento").text()
         tituloArtista = $(this).find(".tituloArtista").text()
         imagenArtista = $(this).find(".imagenArtista").attr("src")
         lugarConcierto = $(this).find(".lugarConcierto").text()
@@ -202,7 +223,27 @@ $(function () {
             success: function(respuesta) {
                 $("#contenido").html(respuesta)
                 eventoSeleccionadoParaComprar(tituloArtista,imagenArtista,lugarConcierto,fechaEvento)
-                cargarInfoEntradas(idArtista)
+                cargarInfoEntradas(idEvento)
+                for (let i in arrReservas) {
+                    let idEventoReservado = arrReservas[i].split(",")[0]
+                    let idUsuarioEvReservado = arrReservas[i].split(",")[1]
+                    let butacaReservada = arrReservas[i].split(",")[2]
+                    let nombreReserva = arrReservas[i].split(",")[3]
+                    let apellidosReserva = arrReservas[i].split(",")[4]
+                    let imagenReserva = arrReservas[i].split(",")[5]
+                    //CAMBIAMOS LAS BUTACAS 
+                    if (idEventoReservado == idEvento) {
+                        $(".asiento").each(function name() {
+                            if ($(this).text()==butacaReservada) {
+                                $(this).addClass("reservado")
+                            }
+                        })                
+                    }
+
+                    // Añadimos el contenido a Fila Butacas
+                    $("#reservas h2").after(filaReserva(imagenReserva,nombreReserva,apellidosReserva,butacaReservada))
+                }
+                
             },
             error: function() {
                 alert("Error al cargar el JSON")
@@ -217,38 +258,82 @@ $(function () {
         let apellidosReserva = $('.apellidos').val()
         let butacaReserva = $('.butaca').text()
         let imagenArtistaReserva = $("#imagenArtista").attr("src")
-        $('.asiento').each(function () {
-            if ($(this).hasClass('reservado')) {
-                $(this).removeClass('reservado')
-                $(this).addClass('comprado')
-            }
-        })
-
-        $("#reservas").append(filaReserva(imagenArtistaReserva,nombreReserva,apellidosReserva,butacaReserva))
-        arrReservas.push(idArtista+","+idUsuario+","+butacaReserva+","+nombreReserva+","+apellidosReserva+";")
-        // nuevaReserva(nombreReserva,apellidosReserva,butacaReserva)
+        
+        if (nombreReserva.length <= 0 ||apellidosReserva.length <= 0 ||butacaReserva.length <= 0) {
+            alert("Los datos no pueden estar vacios")
+        } else {
+            $('.asiento').each(function () {
+                if ($(this).hasClass('seleccionado')) {
+                    $(this).removeClass('seleccionado')
+                    $(this).addClass('reservado')
+                }
+            })
+    
+            $("#reservas h2").after(filaReserva(imagenArtistaReserva,nombreReserva,apellidosReserva,butacaReserva))
+            arrReservas.push(idEvento+","+idUsuario+","+butacaReserva+","+nombreReserva+","+apellidosReserva+","+imagenArtistaReserva)
+        }
+        
     })
 
+    // BOTON PARA COMPRAR FINAL DE LA ENTRADA
 
+    $('body').on('click','.botonComprarEntradas',function () {
+        let idEventoReservado
+        let idUsuarioEvReservado 
+        let butacaReservada
+        let nombreReserva
+        let apellidoReserva
+        for (let i in arrReservas) {
+            idEventoReservado = arrReservas[i].split(",")[0]
+            idUsuarioEvReservado = arrReservas[i].split(",")[1]
+            butacaReservada = arrReservas[i].split(",")[2]
+            nombreReserva = arrReservas[i].split(",")[3]
+            apellidoReserva = arrReservas[i].split(",")[4]
+            
+            //CAMBIAMOS LAS BUTACAS DE RESERVADAS A COMPRADAS
+            if (idEventoReservado == idEvento) {
+                $(".asiento").each(function name() {
+                    if ($(this).text()==butacaReservada) {
+                        $(this).addClass("comprado")
+                    }
+                })                
+            }
+            
+            alert(idEventoReservado + " | " +  idUsuarioEvReservado+ " | " +butacaReservada + " | " +nombreReserva + " | " +apellidoReserva)
 
+            comprarEvento(idEventoReservado,idUsuarioEvReservado,butacaReservada,nombreReserva,apellidoReserva)
+        }
+        
+        
+
+        // VACIAMOS EL ARRAY DE LAS RESERVAS QUE TENEMOS
+        arrReservas = []
+        //ELIMINAMOS LAS  butacasReservadas DE LAS LISTA DE BUTACAS EN RESERVA
+        $(".butacasReservadas").each(function () {
+            $(this).remove()
+        })
+    })
 
     // MODIFICAMOS LOS ASIENTOS AL PULSARLOS 
     // LOS ASIENTOS TIENEN 
     // 1: Disponible -> El Asiento esta Disponible y se puede reservar (GRIS)
-    // 2: Reservado -> El Asiento se marca como reservado (AMARILLO)
-    // 3: Comprado -> Nosotros somos los propietarios del asiento (VERDE)
-    // 4: Ocupado -> El Asiento esta reservado por otro usuario (ROJO)
+    // 2: Seleccionado -> El Asiento esta seleccionado pero aun no se ha reservado (AMARILLO)
+    // 3: Reservado -> El Asiento se marca como reservado (AZUL)
+    // 4: Comprado -> Nosotros somos los propietarios del asiento (VERDE)
+    // 5: Ocupado -> El Asiento esta reservado por otro usuario (ROJO)
 
     $('body').on('click','.asiento',function () {
         // alert($(this).hasClass("ocupado"))
         $('.asiento').each(function () {
-            if($(this).hasClass("reservado")){
-                $(this).removeClass("reservado")
+            if($(this).hasClass("seleccionado")){
+                $(this).removeClass("seleccionado")
+                $('.butaca').text("")
             }    
         })
 
-        if(!$(this).hasClass("ocupado")){
-            $(this).addClass("reservado")
+        if(!$(this).hasClass("ocupado") && !$(this).hasClass("comprado")){
+            $(this).addClass("seleccionado")
+            alert($(this).text())
             $('.butaca').text($(this).text())
         } else {
             alert("Ese asiento ya esta ocupado!")
@@ -303,7 +388,7 @@ function cargarInfoEntradas(idEvento){
     $.ajax({
         url: './php/getInfoEvento.php',
         type: 'POST',
-        data: {"idArtista": idEvento,
+        data: {"idEvento": idEvento,
             "getCantiones": "getCanciones"
         },
         // data: {"estilo": estilo,
@@ -319,7 +404,11 @@ function cargarInfoEntradas(idEvento){
                 // alert(entrada.butaca)
                 $(".asiento").each(function () {
                     if ($(this).text() == entrada.butaca) {
-                        $(this).addClass('ocupado')
+                        if (entrada.id_usuario == idUsuario && idUsuario != 1 ) {
+                            $(this).addClass('comprado')
+                        } else {
+                            $(this).addClass('ocupado')
+                        }
                     }
                 })
 
@@ -439,73 +528,11 @@ function cargarEstadios() {
 
 
 
-// PAGINA HOME
 
-
-
-// ESTA FUNCION SE ENCARGA DE OBTENER LOS DATOS DE LOS EVENTOS PARA GENERAR LAS TARJETAS
-
-function gerneroMusica(estilo) {
-    $.ajax({
-        url: './php/getMusicBD.php',
-        type: 'POST',
-        data: {"estilo": estilo},
-        // data: {"estilo": estilo,
-        //     "nombre": "Luis",
-        //     "edad":20
-        // },
-        success: function (respuesta) {
-        //    alert("Datos enviados " + respuesta);
-            // alert(respuesta)
-            $(".filaArtistas").html("")
-            if (respuesta) {
-                var artistas = JSON.parse(respuesta);
-            
-                $.each(artistas, function (index, artista) {
-                    
-                    let nuevaTarjeta = `
-                    <div class="col">
-                    <div class="card h-100">
-                    <img src="${artista.imagen}" class="card-img-top img-fluid imagenArtista" alt="...">
-                    <div class="card-body">
-                        <div class="pb-3">
-                        <p class="card-text mb-5">
-                            <i class="bi-calendar3"></i><span class="fechaEvento"> ${artista.fecha} </span>
-                            <i class="bi-people-fill"></i><span> ${artista.seguidores} </span>
-                            <i class="bi-bookmark-star"></i></p>
-                        </div>
-                        <p hidden class="idArtista">${artista.id_artista}</p>
-                        <h5 class="card-title tituloArtista">${artista.nombreArtista}</h5>
-                        <p class="mb-0 lugarConcierto">${artista.lugarConcierto}</p>
-                    </div>
-                    </div>
-                </div>`
-
-                $(".filaArtistas").append(nuevaTarjeta)
-                });
-
-            } else {
-                $(".filaArtistas").append("<p class='bg-danger'>No se encontraron datos</p>")
-            }
-            
-        },
-        error: function () {
-        console.log('Error al cargar el JSON');
-        }
-        });
-}
 
 
 // GESTION DE USUARIOS
 
-// ESTABLECEMOS LAS VARIABLES QUE USAREMOS A 0 PARA LOS INVITADOS 
-let idUsuario = ""
-let username = ""
-let nombreUsuario = ""
-let apellidoUsuario = ""
-let imagenUsuario = ""
-let rolUsuario = "invitado"
-let arrReservas = []
 
 // COMPROBAMOS EN BD SI EL USUARIO Y PASS SON CORRECTOS, EN CASO DE SER CORRECTOS
 // OCULTA EL BOTON DE ACCESO, MUESTRA EL MENU DE USUARIO, MUESTRA EL NOMBRE DEL USUARIO Y
@@ -524,7 +551,7 @@ function comprobarUsusario(user,pass) {
                 alert(respuesta)
                 var datosUsuario = JSON.parse(respuesta);
                 $.each(datosUsuario, function (index, dato) {
-                    idUsuario = dato.id_usuarios
+                    idUsuario = dato.id_usuario
                     nombreUsuario = dato.nombre_usuario
                     apellidoUsuario = dato.apellido_usuario
                     imagenUsuario = dato.imagenUsuario
@@ -536,7 +563,7 @@ function comprobarUsusario(user,pass) {
                 $("#menuUser").show()
                 $("#logoUser").attr("src",imagenUsuario)
                 $("#acceso").hide()
-                $('#exampleModal').modal('hide');
+                $('#loginModal').modal('hide');
                 if (rolUsuario=="administrador") {
                     $("#administrar").show()
                 }
@@ -618,3 +645,80 @@ function cargarCanciones() {
         });   
 }
 
+// PAGINA HOME
+
+
+
+// ESTA FUNCION SE ENCARGA DE OBTENER LOS DATOS DE LOS EVENTOS PARA GENERAR LAS TARJETAS
+
+function gerneroMusica(estilo) {
+    
+    $.ajax({
+        url: './php/getMusicBD.php',
+        type: 'POST',
+        data: {"estilo": estilo},
+        // data: {"estilo": estilo,
+        //     "nombre": "Luis",
+        //     "edad":20
+        // },
+        success: function (respuesta) {
+        //    alert("Datos enviados " + respuesta);
+            // alert(respuesta)
+            $(".filaArtistas").html("")
+            if (respuesta) {
+                var eventos = JSON.parse(respuesta);
+            
+                $.each(eventos, function (index, evento) {
+                    
+                    let nuevaTarjeta = `
+                    <div class="col">
+                    <div class="card h-100">
+                    <img src="${evento.imagen}" class="card-img-top img-fluid imagenArtista" alt="...">
+                    <div class="card-body">
+                        <div class="pb-3">
+                        <p class="card-text mb-5">
+                            <i class="bi-calendar3"></i><span class="fechaEvento"> ${evento.fecha} </span>
+                            <i class="bi-people-fill"></i><span> ${evento.aforo} </span>
+                            <i class="bi-bookmark-star"></i></p>
+                        </div>
+                        <p hidden class="idEvento">${evento.id_evento}</p>
+                        <h5 class="card-title tituloArtista">${evento.nombreArtista}</h5>
+                        <p class="mb-0 lugarConcierto">${evento.lugarConcierto}</p>
+                    </div>
+                    </div>
+                </div>`
+
+                $(".filaArtistas").append(nuevaTarjeta)
+                });
+
+            } else {
+                $(".filaArtistas").append("<p class='bg-danger'>No se encontraron datos</p>")
+            }
+            
+        },
+        error: function () {
+        console.log('Error al cargar el JSON');
+        }
+        });
+}
+
+
+// PAGINA COMPRAR RESERVAR ENTRADAS
+function comprarEvento(idEventoReservado,idUsuarioEvReservado,butacaReservada,nombreReserva,apellidoReserva) {
+    $.ajax({
+        url: './php/comprarEntradas.php',
+        type: 'POST',
+        data: {"idEventoReservado": idEventoReservado,
+            "idUsuarioEvReservado": idUsuarioEvReservado,
+            "butacaReservada": butacaReservada,
+            "nombreReserva": nombreReserva,
+            "apellidoReserva": apellidoReserva,
+        },
+        success: function (respuesta) {
+            alert(respuesta)
+        },
+        error: function () {
+        console.log('Error al cargar el JSON');
+        }
+        });
+}

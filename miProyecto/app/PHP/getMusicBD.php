@@ -1,4 +1,7 @@
 <?php
+
+// CARGAMOS LOS EVENTOS SEGUN EL ESTILO QUE SE HA SELECCIONADO
+
 if(isset($_POST['estilo'])){
     $estilo = $_POST['estilo'];
    // echo("todoOK $estilos");
@@ -10,7 +13,12 @@ $database = "MusicEx";
 $conn=mysqli_connect($host,$username,$password,$database);
 
 //Coger todas las filas
-$sql="SELECT * FROM artistas WHERE estilo = ?";
+// $sql="SELECT * FROM eventos WHERE estilo = ?";
+$sql = "SELECT `eventos`.*, `artistas`.`nombreArtista`\n"
+    . "FROM `eventos` \n"
+    . "	LEFT JOIN `artistas` ON `artistas`.`id_artista` = `eventos`.`id_artista`\n"
+    . "WHERE `eventos`.`estilo` = ?;";
+    
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $estilo); // 's' especifica que el parámetro es una cadena (string)
 

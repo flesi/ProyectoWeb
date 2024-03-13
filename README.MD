@@ -18,11 +18,24 @@
     - ✅ Las canciones de Destacados, Tendencias y Nuevos se cargan dinamicamente de BD
     - ✅ Al pulsar una cancion se reproduce en el iFrame
     - ✅ 3 Roles Usuario (Invitado, Usuario y Administrador)
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Los Eventos se reservaran antes de ser comprados
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden comprar entradas para varios eventos simultaneamente 
+    - ✅ La compra de butacas tienen 5 estados 
+            
+            -Disponible: El Asiento esta libre para poder ser reservado
+
+            -Seleccionado: El Asiento esta reservado para ser reservado
+            
+            -Reservado: El Asiento se añade a la lista de Reservados (Lista de compra)
+            
+            -Comprado: El Asiento ha sido comprado por nosotros
+        
+            -Ocupado: El Asiento esta ocupado por otra persona
     
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Contenido Dockerizado
+    - ✅ Se pueden comprar entradas para varios eventos simultaneamente 
+    
+    
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El usuario Administrador podrá gestionar los eventos, las canciones y los generos 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Los usuarios pueden editar configuracion basica del perfil
+    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El Cuadro de busqueda es funcional
+    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Contenido Dockerizado
