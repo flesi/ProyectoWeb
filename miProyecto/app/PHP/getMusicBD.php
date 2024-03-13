@@ -14,11 +14,24 @@ $conn=mysqli_connect($host,$username,$password,$database);
 
 //Coger todas las filas
 // $sql="SELECT * FROM eventos WHERE estilo = ?";
-$sql = "SELECT `eventos`.*, `artistas`.`nombreArtista`\n"
-    . "FROM `eventos` \n"
-    . "	LEFT JOIN `artistas` ON `artistas`.`id_artista` = `eventos`.`id_artista`\n"
-    . "WHERE `eventos`.`estilo` = ?;";
-    
+// $sql = "SELECT `eventos`.*, `artistas`.`nombreArtista`\n"
+//     . "FROM `eventos` \n"
+//     . "	LEFT JOIN `artistas` ON `artistas`.`id_artista` = `eventos`.`id_artista`\n"
+//     . "WHERE `eventos`.`estilo` = ?;";
+
+$sql = "SELECT e.*, a.nombreArtista AS nombre_artista\n"
+
+    . "FROM eventos e\n"
+
+    . "INNER JOIN artistas a ON e.id_artista = a.id_artista\n"
+
+    . "INNER JOIN artistas_estilos ag ON a.id_artista = ag.id_artista\n"
+
+    . "INNER JOIN estilos g ON ag.id_estilo = g.id\n"
+
+    . "WHERE g.nombre = ?;";
+
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $estilo); // 's' especifica que el parámetro es una cadena (string)
 

@@ -33,9 +33,9 @@
     - ✅ Se pueden comprar entradas para varios eventos simultaneamente 
     
     
+    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El usuario Administrador podrá gestionar los eventos, las canciones y los generos 
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Los usuarios pueden editar configuracion basica del perfil
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El Cuadro de busqueda es funcional
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Contenido Dockerizado

@@ -7,6 +7,8 @@
     let rolUsuario = "invitado"
     let arrReservas = []
 
+    let estiloActivo = ""
+
 $(function () {
 
     // CARGAMOS HOME AL CARGAR LA PAGINA
@@ -41,6 +43,8 @@ $(function () {
             success: function(respuesta) {
                 $("#contenido").html(respuesta)
                 cargarCanciones()
+                
+                gerneroMusica(estiloActivo)
 
             },
             error: function() {
@@ -132,7 +136,10 @@ $('#searchInput').autocomplete({
 
 // BOTONES PARA CARGAR LOS DISTINTOS EVENTOS SEGUN SU GENERO
 
+
+
 $('body').on('click','.btnGeneroMusical',function () {
+    estiloActivo = $(this).text()
     gerneroMusica($(this).text())
   })
 
@@ -176,10 +183,10 @@ $('body').on('click','.btnGeneroMusical',function () {
   
       }
 
-    //   cargarReproductorYT()
       $('body').on('click','.cancion',function () {
-        let videoId = $(this).find(".videoURL").text(); // ID del video de YouTube
-        player.loadVideoById(videoId);
+        
+        // let videoId = $(this).find(".videoURL").text(); // ID del video de YouTube
+        // player.loadVideoById(videoId);
         // alert($('#videoYT iframe').attr("src"))
         // $('#videoYT iframe').attr("src","https://www.youtube.com/embed/JGwWNGJdvx8?si=AWMe6NHQrgQbZFK2")
         // alert($('#videoYT iframe').attr("src"))
@@ -607,8 +614,8 @@ function cargarCanciones() {
                     <div class="row cancion mb-1">
                         <div class="col-2  d-flex align-items-center justify-content-center">
                             <h2>${index}</h2>
-                        </div>
-                        <div class="col-2  d-flex align-items-center justify-content-center"><img class="img-fluid imagenCancion" src="${cancion.imagenArtista}" alt=""></div>
+                        </div> 
+                        <div class="col-2  d-flex align-items-center justify-content-center"><img class="img-fluid imagenCancion" src="${cancion.imagenCancion}" alt=""></div>
                         <div class="col-6 ">
                             <p>${cancion.nombreCancion}</p>
                             <p>${cancion.descripcionCancion}</p>
@@ -673,7 +680,7 @@ function gerneroMusica(estilo) {
                     let nuevaTarjeta = `
                     <div class="col">
                     <div class="card h-100">
-                    <img src="${evento.imagen}" class="card-img-top img-fluid imagenArtista" alt="...">
+                    <img src="${evento.imagenEvento}" class="card-img-top img-fluid imagenArtista" alt="...">
                     <div class="card-body">
                         <div class="pb-3">
                         <p class="card-text mb-5">
@@ -682,7 +689,7 @@ function gerneroMusica(estilo) {
                             <i class="bi-bookmark-star"></i></p>
                         </div>
                         <p hidden class="idEvento">${evento.id_evento}</p>
-                        <h5 class="card-title tituloArtista">${evento.nombreArtista}</h5>
+                        <h5 class="card-title tituloArtista">${evento.nombre_artista}</h5>
                         <p class="mb-0 lugarConcierto">${evento.lugarConcierto}</p>
                     </div>
                     </div>
