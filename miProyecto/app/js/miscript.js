@@ -43,8 +43,8 @@ $(function () {
             success: function(respuesta) {
                 $("#contenido").html(respuesta)
                 cargarCanciones()
-                
-                gerneroMusica(estiloActivo)
+                getEstilosMusica()
+                generarTarjetasEventos(estiloActivo)
 
             },
             error: function() {
@@ -144,7 +144,7 @@ $('#searchInput').autocomplete({
 
 $('body').on('click','.btnGeneroMusical',function () {
     estiloActivo = $(this).text()
-    gerneroMusica($(this).text())
+    generarTarjetasEventos($(this).text())
   })
 
 
@@ -660,11 +660,39 @@ function cargarCanciones() {
 
 // PAGINA HOME
 
+// OBTENER LOS DISTINOS GENEROS DE MUSICA
+function getEstilosMusica() {
+    $.ajax({
+        url: './php/getEstilos.php',
+        type: 'POST',
+        // data: {"idEvento": idEvento,
+        //     "getCantiones": "getCanciones"
+        // },
+        // data: {"estilo": estilo,
+        //     "nombre": "Luis",
+        //     "edad":20
+        // },
+        success: function (respuesta) {
+        //    alert("Datos enviados " + respuesta);
+            // alert(respuesta)
+            // $(".filaArtistas").html("")
+            var estilos = JSON.parse(respuesta);
+            $.each(estilos, function (index, estilo) {
+                $('#botonesGeneroMusical').append('<button class="btn btn-outline-success rounded-pill btnGeneroMusical">'+estilo.nombre+'</button>')
+
+            })
+            
+        },
+        error: function () {
+        console.log('Error al cargar el JSON');
+        }
+        });   
+}
 
 
-// ESTA FUNCION SE ENCARGA DE OBTENER LOS DATOS DE LOS EVENTOS PARA GENERAR LAS TARJETAS
+// OBTENER LOS DATOS DE LOS EVENTOS PARA GENERAR LAS TARJETAS
 
-function gerneroMusica(estilo) {
+function generarTarjetasEventos(estilo) {
     
     $.ajax({
         url: './php/getMusicBD.php',

@@ -13,7 +13,7 @@
 
 
 -  Cualquier cosa que quieras añadir, como modificaciones o borrado en BD.
-
+    - ✅ Los estilos (generos musicales), estan almacenados en BD y se cargan en los botones dinamicamente.
     - ✅ Las tarjetas (eventos) se pueden seleccionar y aparecera el contenido de esta en la pagina comprar.
     - ✅ Las canciones de Destacados, Tendencias y Nuevos se cargan dinamicamente de BD
     - ✅ Al pulsar una cancion se reproduce en el iFrame
@@ -32,7 +32,8 @@
     
     - ✅ Se pueden comprar entradas para varios eventos simultaneamente 
     - ✅ Se crea una nueva estructura de base de datos
-    <img src="images/database.png" alt=""/>
+
+        <img src="images/database.png" alt=""/>
     
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 
