@@ -1,145 +1,101 @@
-<section class="container-fluid pt-3 text-white" id="hero">
-  <div class="row ms-5 pb-3">
-
-    <ul class="nav navArtistas nav-pills mb-4" id="pills-tab" role="tablist">
-      <!-- BOTON PESTAÑA DESTACADOS -->
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-destacados-tab" data-bs-toggle="pill" data-bs-target="#pills-destacados"
-          type="button" role="tab" aria-controls="pills-destacados" aria-selected="true">Destacados</button>
-      </li>
-      <!-- BOTON PESTAÑA TENDENCIAS -->
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-white" id="pills-tendencias-tab" data-bs-toggle="pill" data-bs-target="#pills-tendencias"
-          type="button" role="tab" aria-controls="pills-tendencias" aria-selected="false">Tendencias</button>
-      </li>
-      <!-- BOTON PESTAÑA NUEVOS -->
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-white" id="pills-nuevos-tab" data-bs-toggle="pill" data-bs-target="#pills-nuevos"
-          type="button" role="tab" aria-controls="pills-nuevos" aria-selected="false">Nuevos</button>
-      </li>
-    </ul>
-
-    <div class="tab-content col-md-6" id="pills-tabContent">
-      <div class="tab-pane fade show active" id="pills-destacados" role="tabpanel" aria-labelledby="pills-destacados-tab" tabindex="0">
-             
-        <!-- <div class="row cancion mb-1">
-          <div class="col-2  d-flex align-items-center justify-content-center">
-            <h2>01</h2>
-          </div>
-          <div class="col-2  d-flex align-items-center justify-content-center"><img
-              class="img-fluid imagenCancion" src="images/06.jpg" alt=""></div>
-          <div class="col-6 ">
-            <p>My hearth will go on</p>
-            <p>a song description</p>
-          </div>
-          <div class="col-2 d-flex align-items-center justify-content-center">05:00 <i
-              class="bi bi-caret-right"></i>
-          </div>
-        </div> -->
-
-        <!-- <div class="row cancion mb-1">
-          <div class="col-2  d-flex align-items-center justify-content-center">
-            <h2>01</h2>
-          </div>
-          <div class="col-2  d-flex align-items-center justify-content-center"><img
-              class="img-fluid imagenCancion" src="images/06.jpg" alt=""></div>
-          <div class="col-6 ">
-            <p>My hearth will go on</p>
-            <p>a song description</p>
-          </div>
-          <div class="col-2 d-flex align-items-center justify-content-center">05:00 <i
-              class="bi bi-caret-right"></i>
-          </div>
-        </div> -->
-
-        <!-- <div class="row cancion mb-1">
-          <div class="col-2  d-flex align-items-center justify-content-center">
-            <h2>01</h2>
-          </div>
-          <div class="col-2  d-flex align-items-center justify-content-center"><img
-              class="img-fluid imagenCancion" src="images/06.jpg" alt=""></div>
-          <div class="col-6 ">
-            <p>My hearth will go on</p>
-            <p>a song description</p>
-          </div>
-          <div class="col-2 d-flex align-items-center justify-content-center">05:00 <i
-              class="bi bi-caret-right"></i>
-          </div>
-        </div> -->
+<div class="container-fluid">
 
 
-      </div>
-      <!-- PESTAÑA TENDENCIAS -->
-      <div class="tab-pane fade" id="pills-tendencias" role="tabpanel" aria-labelledby="pills-tendencias-tab" tabindex="0">
-        
-      </div>
-      <!-- PESTAÑA NUEVOS -->
-      <div class="tab-pane fade" id="pills-nuevos" role="tabpanel" aria-labelledby="pills-nuevos-tab" tabindex="0">
-
-      </div>
-    </div>
-
+  <div class="row pt-3 mb-2 text-white" id="heroHome">
+    
+    <!-- PESTAÑAS Y LISTADO DE CANCIONES -->
+    <div class="col-md-5 offset-1">
       
+      <!-- BOTONES DE LAS DISTINTAS PESTAÑAS -->
+      <div class="row">
+       <div class="col-12">
+        <ul class="nav navArtistas nav-pills mb-4" id="pills-tab" role="tablist">
+          <!-- BOTON PESTAÑA DESTACADOS -->
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-destacados-tab" data-bs-toggle="pill" data-bs-target="#pills-destacados"
+              type="button" role="tab" aria-controls="pills-destacados" aria-selected="true">Destacados</button>
+          </li>
+          <!-- BOTON PESTAÑA TENDENCIAS -->
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-white" id="pills-tendencias-tab" data-bs-toggle="pill" data-bs-target="#pills-tendencias"
+              type="button" role="tab" aria-controls="pills-tendencias" aria-selected="false">Tendencias</button>
+          </li>
+          <!-- BOTON PESTAÑA NUEVOS -->
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-white" id="pills-nuevos-tab" data-bs-toggle="pill" data-bs-target="#pills-nuevos"
+              type="button" role="tab" aria-controls="pills-nuevos" aria-selected="false">Nuevos</button>
+          </li>
+        </ul>
+       </div>
+      </div>
 
-
-      <div class="col-md-6" id="videoYT">
+        <!-- LISTADO DE CANCIONES -->
+        <div class="row">
+          <div class="col-10">
+            <!-- CONTENIDO DE LAS DISTINTAS PESTAÑAS -->
+            <div class="tab-content col-12" id="pills-tabContent">
+              <!-- PESTAÑA DESTACADOS -->
+              <div class="tab-pane fade show active" id="pills-destacados" role="tabpanel" aria-labelledby="pills-destacados-tab" tabindex="0">
+                <!-- <div class="row cancion mb-1">
+                  <div class="col-2  d-flex align-items-center justify-content-center">
+                    <h2>01</h2>
+                  </div>
+                  <div class="col-2  d-flex align-items-center justify-content-center"><img
+                      class="img-fluid imagenCancion" src="images/06.jpg" alt=""></div>
+                  <div class="col-6 ">
+                    <p>My hearth will go on</p>
+                    <p>a song description</p>
+                  </div>
+                  <div class="col-2 d-flex align-items-center justify-content-center">05:00 <i
+                      class="bi bi-caret-right"></i>
+                  </div>
+                </div> -->
+              </div>
+          
+              <!-- PESTAÑA TENDENCIAS -->
+              <div class="tab-pane fade" id="pills-tendencias" role="tabpanel" aria-labelledby="pills-tendencias-tab" tabindex="0">
+              </div>
+              <!-- PESTAÑA NUEVOS -->
+              <div class="tab-pane fade" id="pills-nuevos" role="tabpanel" aria-labelledby="pills-nuevos-tab" tabindex="0">
+              </div>
+            </div>
+          </div>
+        
+        </div>
+    </div>
+      
+  
+      <!-- i FRAME VIDEO YOUTUBE -->
+      <div class="col-md-5 mb-5" id="videoYT">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/lIBUn8HfBzI?si=8JuJ869rchfdcHFO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
-    </div>
-  </section>
-              <!-- <div class="row cancion mb-1 ">
-                <div class="col-2  d-flex align-items-center justify-content-center">
-                  <h2>02</h2>
-                </div>
-                <div class="col-2  d-flex align-items-center justify-content-center"><img
-                    class="img-fluid imagenCancion" src="images/04.jpg" alt=""></div>
-                <div class="col-6 ">
-                  <p>Another song</p>
-                  <p>a song description</p>
-                </div>
-                <div class="col-2 d-flex align-items-center justify-content-center">05:00 <i
-                    class="bi bi-caret-right"></i></div>
-              </div> -->
 
-              <!-- <div class="row cancion mb-1 ">
-                <div class="col-2  d-flex align-items-center justify-content-center">
-                  <h2>03</h2>
-                </div>
-                <div class="col-2  d-flex align-items-center justify-content-center"><img
-                    class="img-fluid imagenCancion" src="images/05.jpg" alt=""></div>
-                <div class="col-6 ">
-                  <p>My confessions</p>
-                  <p>a song description</p>
-                </div>
-                <div class="col-2 d-flex align-items-center justify-content-center">05:00 <i
-                    class="bi bi-caret-right"></i></div>
-              </div> -->
-  <section class="container-fluid p-3" id="proximoxEventos">
-    <div class="row mb-3">
-      <div class="col" id="botonesGeneroMusical">
-        <button class="btn btn-outline-prueba rounded-pill btnGeneroMusical btnDia">Hoy</button>
-        <button class="btn btn-outline-prueba rounded-pill btnGeneroMusical btnSemana">Esta semana</button>
-        <button class="btn btn-outline-prueba rounded-pill btnGeneroMusical btnMes">Esta mes</button>
-        <!-- <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Alternativa</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Rock</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Pop</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Blues</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Metal</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Jazz</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Reggae</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Salsa</button>
-        <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Clasica</button> -->
+      
+  </div>
+
+
+    <!-- SECCION CON BOTONES DE FILTRADO Y EVENTOS -->
+    <div class="row mt-3" id="proximoxEventos">
+    <!-- BOTONES PARA FILTRAR LOS EVENTOS -->
+      <div class="mb-3 col-10" id="botonesGeneroMusical">
+        
+          <button class="btn btn-outline-prueba rounded-pill btnGeneroMusical btnDia">Hoy</button>
+          <button class="btn btn-outline-prueba rounded-pill btnGeneroMusical btnSemana">Esta semana</button>
+          <button class="btn btn-outline-prueba rounded-pill btnGeneroMusical btnMes">Esta mes</button>
+          <!-- <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Alternativa</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Rock</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Pop</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Blues</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Metal</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Jazz</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Reggae</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Salsa</button>
+          <button class="btn btn-outline-success rounded-pill btnGeneroMusical">Clasica</button> -->
+        
       </div>
-    </div>
-  </section>
-    <!-- Crear las tarjetas de los próximos conciertos, 
-          el color usado en los iconos es: # 5cc0b9. 
-          Tamaño de las letras pequeñas es: 8pt 
-          el nombre del artista 14pt. 
-        Iconos: bi-calendar3, bi-people-fill, bi-bookmark-star. 
-        El nombre de las imágenes utilizadas es el mismo nombre que el del artista -->
-      <section class="container ">
-        <div class="row row-cols-1 bg-danger mb-4 row-cols-md-5 g-4 filaArtistas ">
+
+      <div class="col-8 offset-2">
+        <div class="row row-cols-1 mb-4 row-cols-md-5 g-4 filaArtistas">
 
           <!-- <div class="col">
             <div class="card h-100">
@@ -151,13 +107,13 @@
                     <i class="bi-people-fill"></i> 132
                     <i class="bi-bookmark-star"></i></p>
                 </div>
-
+  
                 <h5 class="card-title">Mikel Izal</h5>
                 <p class="mb-0 ">Teatro Circo Price</p>
               </div>
             </div>
           </div>
-
+  
           <div class="col">
             <div class="card h-100">
               <img src="images/Niall.webp" class="card-img-top img-fluid" alt="...">
@@ -168,13 +124,13 @@
                     <i class="bi-people-fill"></i> 98
                     <i class="bi-bookmark-star"></i></p>
                 </div>
-
+  
                 <h5 class="card-title">Niall Horan</h5>
                 <p class="mb-0 ">WiZink Center</p>
               </div>
             </div>
           </div>
-
+  
           <div class="col">
             <div class="card h-100">
               <img src="images/Hans.webp" class="card-img-top img-fluid" alt="...">
@@ -185,13 +141,13 @@
                     <i class="bi-people-fill"></i> 321
                     <i class="bi-bookmark-star"></i></p>
                 </div>
-
+  
                 <h5 class="card-title">Hans Zimmer</h5>
                 <p class="mb-0 ">WiZink Center</p>
               </div>
             </div>
           </div>
-
+  
           <div class="col">
             <div class="card h-100">
               <img src="images/Myke.webp" class="card-img-top img-fluid" alt="...">
@@ -202,13 +158,13 @@
                     <i class="bi-people-fill"></i> 43
                     <i class="bi-bookmark-star"></i></p>
                 </div>
-
+  
                 <h5 class="card-title">Myke Towers</h5>
                 <p class="mb-0 ">WiZink Center</p>
               </div>
             </div>
           </div>
-
+  
           <div class="col">
             <div class="card h-100">
               <img src="images/Taylor.webp" class="card-img-top img-fluid" alt="...">
@@ -219,12 +175,20 @@
                     <i class="bi-people-fill"></i> 233
                     <i class="bi-bookmark-star"></i></p>
                 </div>
-
+  
                 <h5 class="card-title">Paramore</h5>
                 <p class="mb-0 ">Estadio Santiago Bernabeu</p>
               </div>
             </div>
           </div> -->
         </div>
-      </section>
-  
+      </div>
+
+    </div>
+
+    <!-- TARJETAS CON LOS DISTINTOS EVENTOS QUE CARGAN AL SELECCIONAR UNO DE LOS BOTONES ANTERIORES -->
+    <!-- <div class="container ">
+      
+    </div> -->
+    
+</div>

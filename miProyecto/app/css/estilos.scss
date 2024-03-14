@@ -31,23 +31,32 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 #logoUser{
     width: 40px;
     height: 40px;
+    
 }
 
-.dropdown-item:hover{
+.dropdown-menu {
+    background-color: black;
+}
+
+.dropdown-menu .dropdown-item:hover{
     background-color: white;
     color: black;
 }
 
+.dropdown-menu .dropdown-item{
+    background-color: black;
+    color: white;
+}
 
 
 
 // PAGINA HOME
 
-#hero{
+#heroHome{
     background-image: url(../images/14.jpg);
     background-size: cover; /* Para cubrir completamente el contenedor */
     background-position: 20% 30%; /* Posición del fondo */
-    min-height: 40vh; /* Altura mínima del héroe, aquí usamos vh (viewport height) */
+    // min-height: 40vh; /* Altura mínima del héroe, aquí usamos vh (viewport height) */
 }
 
 .navArtistas .nav-link {
@@ -74,7 +83,7 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 }
 
 .cancion:hover{
-    transform: translateY(-2%);
+    transform: translateY(-25%);
     border: #666 1px solid;
 }
 
@@ -87,13 +96,16 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
     border-top-width: 5px;
 }
 
+.eventoSeleccionado{
+    border: 4px solid #183152;
+}
 
 
 // PAGINA COMPRAR
 
 #headerComprar{
     position: relative;
-    height: 40vh;
+    // height: 40vh;
 }
 
 .filtro { 

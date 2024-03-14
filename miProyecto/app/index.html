@@ -24,72 +24,82 @@
 
 
 
-    <!-- BARRA DE NAVEGACION -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top ">
-      <div class="container">
-          <!-- LOGO -->
-          <a class="navbar-brand" href="#">
-              <i class="bi bi-soundwave"></i>MusicEx
-          </a>
+<!-- BARRA DE NAVEGACION -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top ">
+  <div class="container">
+
+    
+    <!-- LOGO -->
+    <a class="navbar-brand" href="#"><i class="bi bi-soundwave"></i>MusicEx</a>
           
-          
-          <!-- CUADRO DE BUSQUEDA -->
-          <div class="input-group w-25 ui-widget">
-              <input  id="searchInput" class="form-control" placeholder="Buscar" >
-              <span class="input-group-text bg-black text-white border-0 " id="searchButton"><i class="bi bi-search"></i></span>
-          </div>
+    <!-- CUADRO DE BUSQUEDA -->
+    <div class="input-group w-25 ui-widget">
+        <input  id="searchInput" class="form-control" placeholder="Buscar" >
+        <span class="input-group-text bg-black text-white border-0 " id="searchButton"><i class="bi bi-search"></i></span>
+    </div>
 
 
-          <!-- ICONOS REDES SOCIALES -->
-          <div class="text-white mx-3 d-flex">
-              <a href="#" class="me-2 text-white">
-                  <i class="bi bi-facebook"></i>
-              </a>
-              <a href="#" class="me-2 text-white">
-                  <i class="bi bi-twitter"></i>
-              </a>
-              <a href="#" class="me-2 text-white">
-                  <i class="bi bi-instagram"></i>
-              </a>
-          </div>
-          <!-- BOTON TOGGLER COLLAPSE -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- ELEMENTOS DE NAVEGACION QUE APARECERAN EN COLLAPSE -->
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav ms-auto">
-                  <a id="home" class="nav-link" href="#">Home</a>
-                  <a id="descubre" class="nav-link" href="#">Descubre</a>
-                  <a  class="nav-link disabled" aria-disabled="true" href="#">Tendencias</a>
-                  <a class="nav-link disabled" aria-disabled="true" href="#">Conciertos</a>
-                  <button id="comprar" class="btn btn-outline-warning" type="button">Comprar</button>
-                  <button id="administrar" class="btn btn-outline-success" type="button">Administrar</button>
-              </div>
-          </div>
-          <!-- MENU LOGIN -->
-          <div class="d-flex mx-3 text-white" id="menuLogin">
-              <span id="acceso" class="align-self-center"><i class="bi bi-person-fill"></i> Login</span>
-              <div id="menuUser" class="dropdown ">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img id="logoUser" class="img-fluid rounded-circle" src="images/06.jpg" alt="">
-                    <span> HOLA USUARIO</span>
-                  </a>
-      
-                  <!-- ELEMENTOS MENU DESPLEGABLE -->
-                  <ul class="dropdown-menu dropdown-menu-end ">
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configuración</a></li>
-                    <li><a id="cerrarSesion" class="dropdown-item" href="#"><i class="bi bi-box-arrow-in-right"></i> Cerrar Sesión</a></li>
-                  </ul>
-              </div>
-          </div>
+    <!-- ICONOS REDES SOCIALES -->
+    <div class="text-white mx-3 d-flex">
+        <a href="#" class="me-2 text-white">
+            <i class="bi bi-facebook"></i>
+        </a>
+        <a href="#" class="me-2 text-white">
+            <i class="bi bi-twitter"></i>
+        </a>
+        <a href="#" class="me-2 text-white">
+            <i class="bi bi-instagram"></i>
+        </a>
+    </div>
 
-      </div>
-  </nav>
+    <!-- BOTON TOGGLER COLLAPSE -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- ELEMENTOS DE NAVEGACION QUE APARECERAN EN COLLAPSE -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+            <a id="home" class="nav-link" href="#">Home</a>
+            <a id="descubre" class="nav-link" href="#">Descubre</a>
+            <a  class="nav-link disabled" aria-disabled="true" href="#">Tendencias</a>
+            <a class="nav-link disabled" aria-disabled="true" href="#">Conciertos</a>
+            <button id="comprar" class="btn btn-outline-warning" type="button">Comprar</button>
+            <button id="administrar" class="btn btn-outline-success" type="button">Administrar</button>
+        </div>
+    </div>
+
+    <!-- MENU LOGIN -->
+    <div class="d-flex mx-3 text-white" id="menuLogin">
+        <span id="acceso" class="align-self-center"><i class="bi bi-person-fill"></i> Login</span>
+        <div id="menuUser" class="dropdown ">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img id="logoUser" class="img-fluid rounded-circle" src="images/06.jpg" alt="">
+              <span> HOLA USUARIO</span>
+            </a>
+
+            <!-- ELEMENTOS MENU DESPLEGABLE -->
+            <ul class="dropdown-menu dropdown-menu-end ">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configuración</a></li>
+              <li><a id="cerrarSesion" class="dropdown-item" href="#"><i class="bi bi-box-arrow-in-right"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+  </div>
+</nav>
+
+
+
+
+
 
 <!-- Modal -->
+
+
 
 <!-- Modal LOGIN -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -97,7 +107,13 @@
     <div class="modal-content">
       
       <div class="modal-header">
-        <h1><i class="bi bi-soundwave"></i></h1>
+        
+        <div class="container">
+          <div class="col-12 d-flex justify-content-center">
+            <h1><i class="bi bi-soundwave"></i></h1>
+          </div>
+        </div>
+        
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -140,7 +156,11 @@
     <div class="modal-content">
       
       <div class="modal-header">
-        <h1><i class="bi bi-soundwave"></i></h1>
+        <div class="container">
+          <div class="col-12 d-flex justify-content-center">
+            <h1><i class="bi bi-soundwave"></i></h1>
+          </div>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -192,11 +212,21 @@
   </div>
 </div>
 
+
+
+
+
+
+
 <!-- CONTENIDO -->
   
 <div id="contenido">
 
 </div>
+
+
+
+
 
 
 

@@ -143,6 +143,7 @@ $('#searchInput').autocomplete({
 
 
 $('body').on('click','.btnGeneroMusical',function () {
+    
     estiloActivo = $(this).text()
     generarTarjetasEventos($(this).text())
   })
@@ -215,10 +216,11 @@ $('body').on('click','.btnGeneroMusical',function () {
     // SELECCIONAMOS .CARD (EVENTO)
     $('body').on('click','.card',function () {
         $(".card").each(function () {
-            $(this).css("border","0px solid black")    
+            $(this).removeClass('eventoSeleccionado')
         })
 
-        $(this).css("border","4px solid #183152")
+        $(this).addClass('eventoSeleccionado')
+
         $("#comprar").removeClass("disabled")
         idEvento = $(this).find(".idEvento").text()
         tituloArtista = $(this).find(".tituloArtista").text()
@@ -648,7 +650,7 @@ function cargarCanciones() {
                 });
 
             } else {
-                $(".filaArtistas").append("<p class='bg-danger'>No se encontraron datos</p>")
+                $(".filaArtistas").append("<p>No se encontraron datos</p>")
             }
             
         },
@@ -733,7 +735,7 @@ function generarTarjetasEventos(estilo) {
                 });
 
             } else {
-                $(".filaArtistas").append("<p class='bg-danger'>No se encontraron datos</p>")
+                $(".filaArtistas").append("<p class='text-center'>No se encontraron datos</p>")
             }
             
         },
