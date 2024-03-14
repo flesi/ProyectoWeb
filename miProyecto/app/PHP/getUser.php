@@ -8,7 +8,7 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
     $host = "localhost";
     $username = "root";
     $password = "";
-    $database = "MusicEx";
+    $database = "musicex";
     $conn=mysqli_connect($host,$username,$password,$database);
 
 

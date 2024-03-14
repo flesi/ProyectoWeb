@@ -126,7 +126,7 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 
 #reservaAsientos {
     background-image: url(../images/14.jpg);
-    min-height: 30vh;
+    // min-height: 30vh;
     background-position: 20% 30%;
     background-size: cover;
 }
@@ -218,4 +218,15 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 
 footer{
     background-color: #22252a;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#contenido {
+    flex:1;
 }

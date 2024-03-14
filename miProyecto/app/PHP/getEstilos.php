@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "MusicEx";
+$database = "musicex";
 $conn=mysqli_connect($host,$username,$password,$database);
 
 //Coger todas las filas

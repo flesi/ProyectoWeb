@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2024 a las 13:57:51
+-- Tiempo de generación: 14-03-2024 a las 02:24:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -29,18 +29,18 @@ USE `musicex`;
 -- Estructura de tabla para la tabla `artistas`
 --
 
-DROP TABLE IF EXISTS `artistas`;
-CREATE TABLE `artistas` (
-  `id_artista` int(11) NOT NULL,
-  `imagen` varchar(100) NOT NULL,
-  `nombreArtista` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS `artistas` (
+  `id_artista` int(11) NOT NULL AUTO_INCREMENT,
+  `imagenArtista` varchar(100) NOT NULL,
+  `nombreArtista` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_artista`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `artistas`
 --
 
-INSERT INTO `artistas` (`id_artista`, `imagen`, `nombreArtista`) VALUES
+INSERT INTO `artistas` (`id_artista`, `imagenArtista`, `nombreArtista`) VALUES
 (1, 'images/Mikel.webp', 'Mikel Ízalos'),
 (2, 'images/Niall.webp', 'Niall Horan'),
 (3, 'images/Hans.webp', 'Hans Zimmer'),
@@ -61,12 +61,14 @@ INSERT INTO `artistas` (`id_artista`, `imagen`, `nombreArtista`) VALUES
 -- Estructura de tabla para la tabla `artistas_estilos`
 --
 
-DROP TABLE IF EXISTS `artistas_estilos`;
-CREATE TABLE `artistas_estilos` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `artistas_estilos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_artista` int(11) DEFAULT NULL,
-  `id_estilo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_estilo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_artista` (`id_artista`),
+  KEY `id_estilo` (`id_estilo`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `artistas_estilos`
@@ -93,27 +95,28 @@ INSERT INTO `artistas_estilos` (`id`, `id_artista`, `id_estilo`) VALUES
 -- Estructura de tabla para la tabla `canciones`
 --
 
-DROP TABLE IF EXISTS `canciones`;
-CREATE TABLE `canciones` (
-  `idCancion` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `canciones` (
+  `idCancion` int(11) NOT NULL AUTO_INCREMENT,
   `nombreCancion` varchar(255) NOT NULL,
   `descripcionCancion` varchar(255) NOT NULL,
   `tiempoCancion` varchar(255) NOT NULL,
   `imagenCancion` varchar(255) DEFAULT NULL,
   `enlaceCancion` varchar(255) DEFAULT NULL,
-  `iframeCancion` varchar(255) NOT NULL,
-  `categoriaCancion` varchar(255) DEFAULT NULL,
+  `categoriaCancion` enum('Destacados','Tendencias','Nuevos','') DEFAULT NULL,
   `idArtista` int(11) NOT NULL,
-  `visible` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `visible` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`idCancion`),
+  KEY `idArtista` (`idArtista`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `canciones`
 --
 
-INSERT INTO `canciones` (`idCancion`, `nombreCancion`, `descripcionCancion`, `tiempoCancion`, `imagenCancion`, `enlaceCancion`, `iframeCancion`, `categoriaCancion`, `idArtista`, `visible`) VALUES
-(1, 'Boulevard Of Broken Dreams', '«Boulevard of Broken Dreams» —en español: «Bulevard de los sueños rotos»— es el segundo sencillo del álbum American Idiot, de la banda punk rock estadounidense Green Day.', '4:48', 'images/GreenDay.webp', 'Soa3gO7tL-c', '', 'Destacados', 7, 1),
-(2, 'Felicidad', 'Felicidad', '4:30', 'images/cabraMecanica.webp', '8eYxjusjsyI', '', 'Tendencias', 17, 1);
+INSERT INTO `canciones` (`idCancion`, `nombreCancion`, `descripcionCancion`, `tiempoCancion`, `imagenCancion`, `enlaceCancion`, `categoriaCancion`, `idArtista`, `visible`) VALUES
+(1, 'Boulevard Of Broken Dreams', '«Boulevard of Broken Dreams» —en español: «Bulevard de los sueños rotos»— es el segundo sencillo del álbum American Idiot, de la banda punk rock estadounidense Green Day.', '4:48', 'images/GreenDay.webp', 'https://www.youtube.com/embed/Soa3gO7tL-c?si=lc9m3XHW42KvyMFF', 'Destacados', 7, 1),
+(2, 'Felicidad', 'Felicidad', '4:30', 'images/canciones/default.webp', 'https://www.youtube.com/embed/8eYxjusjsyI?si=d-u0hOX4yW2RCEou', 'Tendencias', 17, 1),
+(3, 'En el muelle de San Blas', 'Maná', '6:00', 'images/canciones/default.webp', 'https://www.youtube.com/embed/teprNzF6J1I?si=xM-vBm8YDWkbQU9f', 'Tendencias', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -121,15 +124,17 @@ INSERT INTO `canciones` (`idCancion`, `nombreCancion`, `descripcionCancion`, `ti
 -- Estructura de tabla para la tabla `entradas`
 --
 
-DROP TABLE IF EXISTS `entradas`;
-CREATE TABLE `entradas` (
-  `id_entrada` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `entradas` (
+  `id_entrada` int(11) NOT NULL AUTO_INCREMENT,
   `id_evento` int(11) NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `butaca` int(11) NOT NULL,
   `nombre_comprador` varchar(55) NOT NULL,
-  `apellido_comprador` varchar(55) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `apellido_comprador` varchar(55) NOT NULL,
+  PRIMARY KEY (`id_entrada`),
+  KEY `entrada_usuarios_fk` (`id_usuario`),
+  KEY `id_evento` (`id_evento`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `entradas`
@@ -145,7 +150,13 @@ INSERT INTO `entradas` (`id_entrada`, `id_evento`, `id_usuario`, `butaca`, `nomb
 (10, 6, 1, 11, 'vc', 'xcv'),
 (11, 6, 1, 14, 'vc', 'vc'),
 (12, 6, 1, 2, 'vc', 'vc'),
-(16, 5, 1, 3, 'Manuel', 'Rodriguez');
+(16, 5, 1, 3, 'Manuel', 'Rodriguez'),
+(18, 5, 1, 5, 'pepe', '1234'),
+(20, 7, 3, 2, 'Jose Luis', 'Romero'),
+(21, 7, 3, 4, 'Jose Luis', 'Romero'),
+(22, 5, 3, 13, 'Jose Luis', 'Romero'),
+(23, 9, 3, 3, 'Jose Luis', 'Romero'),
+(24, 9, 3, 2, 'Jose Luis', 'Romero');
 
 -- --------------------------------------------------------
 
@@ -153,11 +164,11 @@ INSERT INTO `entradas` (`id_entrada`, `id_evento`, `id_usuario`, `butaca`, `nomb
 -- Estructura de tabla para la tabla `estilos`
 --
 
-DROP TABLE IF EXISTS `estilos`;
-CREATE TABLE `estilos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS `estilos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `estilos`
@@ -178,35 +189,36 @@ INSERT INTO `estilos` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `eventos`
 --
 
-DROP TABLE IF EXISTS `eventos`;
-CREATE TABLE `eventos` (
-  `id_evento` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `eventos` (
+  `id_evento` int(11) NOT NULL AUTO_INCREMENT,
   `imagenEvento` varchar(100) NOT NULL,
   `fecha` date NOT NULL,
   `hora` varchar(5) NOT NULL,
   `aforo` int(11) NOT NULL,
   `id_artista` int(11) NOT NULL,
   `lugarConcierto` varchar(100) NOT NULL,
-  `estilo` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `estilo` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_evento`),
+  KEY `id_artista` (`id_artista`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `eventos`
 --
 
 INSERT INTO `eventos` (`id_evento`, `imagenEvento`, `fecha`, `hora`, `aforo`, `id_artista`, `lugarConcierto`, `estilo`) VALUES
-(1, 'images/Mikel.webp', '0000-00-00', '', 0, 1, 'Teatro Circo Price', 'POP'),
-(2, 'images/Niall.webp', '0000-00-00', '', 0, 2, 'WiZink Center', 'POP'),
-(3, 'images/Hans.webp', '0000-00-00', '', 0, 3, 'WiZink Center', 'CLASICA'),
-(4, 'images/BigTime.webp', '0000-00-00', '', 0, 4, 'Sala Rivera', 'POP'),
-(5, 'images/Bunbury.webp', '0000-00-00', '', 0, 5, '', 'ROCK'),
-(6, 'images/Evanescence.webp', '0000-00-00', '', 0, 6, '', 'ROCK'),
-(7, 'images/GreenDay.webp', '0000-00-00', '', 0, 7, '', 'ROCK'),
-(8, 'images/Hozier.webp', '0000-00-00', '', 0, 8, '', 'SOUL'),
-(9, 'images/Mana.webp', '0000-00-00', '', 0, 9, '', 'ROCK'),
-(10, 'images/Metallica.webp', '0000-00-00', '', 0, 10, '', 'HEAVY METAL'),
-(11, 'images/Myke.webp', '0000-00-00', '', 0, 11, '', 'REGGAETON'),
-(12, 'images/Taylor.webp', '0000-00-00', '', 0, 12, '', 'POP');
+(1, 'images/Mikel.webp', '2024-04-10', '22:00', 0, 1, 'Teatro Circo Price', 'POP'),
+(2, 'images/Niall.webp', '2024-04-10', '23:30', 0, 2, 'WiZink Center', 'POP'),
+(3, 'images/Hans.webp', '2024-05-15', '20:00', 0, 3, 'WiZink Center', 'CLASICA'),
+(4, 'images/BigTime.webp', '2024-05-16', '21:30', 0, 4, 'Sala Rivera', 'POP'),
+(5, 'images/Bunbury.webp', '2024-06-05', '22:00', 0, 5, '', 'ROCK'),
+(6, 'images/Evanescence.webp', '2024-03-27', '21:30', 0, 6, '', 'ROCK'),
+(7, 'images/GreenDay.webp', '2024-05-16', '19:00', 0, 7, '', 'ROCK'),
+(8, 'images/Hozier.webp', '2024-05-15', '22:00', 0, 8, '', 'SOUL'),
+(9, 'images/Mana.webp', '2024-05-09', '21:30', 0, 9, '', 'ROCK'),
+(10, 'images/Metallica.webp', '2024-05-15', '22:30', 0, 10, '', 'HEAVY METAL'),
+(11, 'images/Myke.webp', '2024-07-10', '21:30', 0, 11, '', 'REGGAETON'),
+(12, 'images/Taylor.webp', '2024-05-15', '20:00', 0, 12, '', 'POP');
 
 -- --------------------------------------------------------
 
@@ -214,9 +226,8 @@ INSERT INTO `eventos` (`id_evento`, `imagenEvento`, `fecha`, `hora`, `aforo`, `i
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE `usuarios` (
-  `id_usuarios` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuarios` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nombre_usuario` varchar(55) NOT NULL,
@@ -225,8 +236,9 @@ CREATE TABLE `usuarios` (
   `telefono_usuario` int(11) NOT NULL,
   `direccion_usuario` varchar(100) NOT NULL,
   `imagenUsuario` varchar(255) NOT NULL DEFAULT 'images/users/default.jpg',
-  `rol_usuario` enum('usuario','administrador','','') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `rol_usuario` enum('usuario','administrador','','') DEFAULT NULL,
+  PRIMARY KEY (`id_usuarios`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -236,104 +248,6 @@ INSERT INTO `usuarios` (`id_usuarios`, `user`, `password`, `nombre_usuario`, `ap
 (1, 'invitado', '1234', 'invitado', 'Romero', 'flesiking@gmail.com', 0, '', '', ''),
 (2, 'rocio', '1234', 'Rocio', 'LLera', '', 0, '', 'images/users/default.jpg', 'usuario'),
 (3, 'pepe', '1234', 'Jose Luis', 'Romero', 'flesiking@gmail.com', 617290920, 'C/Falsa 123', 'images/users/01.jpg', 'administrador');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `artistas`
---
-ALTER TABLE `artistas`
-  ADD PRIMARY KEY (`id_artista`);
-
---
--- Indices de la tabla `artistas_estilos`
---
-ALTER TABLE `artistas_estilos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_artista` (`id_artista`),
-  ADD KEY `id_estilo` (`id_estilo`);
-
---
--- Indices de la tabla `canciones`
---
-ALTER TABLE `canciones`
-  ADD PRIMARY KEY (`idCancion`),
-  ADD KEY `idArtista` (`idArtista`);
-
---
--- Indices de la tabla `entradas`
---
-ALTER TABLE `entradas`
-  ADD PRIMARY KEY (`id_entrada`),
-  ADD KEY `entrada_usuarios_fk` (`id_usuario`),
-  ADD KEY `id_evento` (`id_evento`);
-
---
--- Indices de la tabla `estilos`
---
-ALTER TABLE `estilos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `eventos`
---
-ALTER TABLE `eventos`
-  ADD PRIMARY KEY (`id_evento`),
-  ADD KEY `id_artista` (`id_artista`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuarios`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `artistas`
---
-ALTER TABLE `artistas`
-  MODIFY `id_artista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `artistas_estilos`
---
-ALTER TABLE `artistas_estilos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `canciones`
---
-ALTER TABLE `canciones`
-  MODIFY `idCancion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `entradas`
---
-ALTER TABLE `entradas`
-  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `estilos`
---
-ALTER TABLE `estilos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `eventos`
---
-ALTER TABLE `eventos`
-  MODIFY `id_evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

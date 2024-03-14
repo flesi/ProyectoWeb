@@ -12273,7 +12273,6 @@ textarea.form-control-lg {
 
 #reservaAsientos {
   background-image: url(../images/14.jpg);
-  min-height: 30vh;
   background-position: 20% 30%;
   background-size: cover;
 }
@@ -12348,4 +12347,14 @@ textarea.form-control-lg {
 
 footer {
   background-color: #22252a;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#contenido {
+  flex: 1;
 }/*# sourceMappingURL=estilos.css.map */

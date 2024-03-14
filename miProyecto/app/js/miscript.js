@@ -12,17 +12,19 @@
 $(function () {
 
     // CARGAMOS HOME AL CARGAR LA PAGINA
-    // $.ajax({
-    //     url: './html/home.html',
-    //     type: 'GET',
-    //     success: function(respuesta) {
-    //         $("#contenido").html(respuesta)
-    //         cargarCanciones()
-    //     },
-    //     error: function() {
-    //         alert("Error al cargar el JSON")
-    //     }
-    // })    
+    $.ajax({
+        url: './html/home.html',
+        type: 'GET',
+        success: function(respuesta) {
+            $("#contenido").html(respuesta)
+            cargarCanciones()
+            getEstilosMusica()
+            generarTarjetasEventos(estiloActivo)
+        },
+        error: function() {
+            alert("Error al cargar el JSON")
+        }
+    })    
 
 
 
@@ -126,13 +128,151 @@ $('#searchInput').autocomplete({
             
       })
 
+      // REGISTRO DE USUARIO
+
       $('body').on('click','.registrar',function () {
         $('#loginModal').modal('hide');
         $('#registerModal').modal('show');
-        $('userRegister').on('keyup',function () {
+
+        //El boton de registrarse estara deshabilitado hasta que no esten completos los campos necesarios
+        $("#registrarme").prop("disabled", true)
+        
+        let userCheck
+        let passCheck
+        let mailCheck
+        
+        // Comprobamos que el usuario es valido (no existe)
+        $("#userRegister").on('keyup',function () {
+            if ($("#userRegister").val().length<4) {
+                $('#userExistCheck').removeClass("text-success")
+                $('#userExistCheck').addClass("text-danger")
+                $('#userExistCheck').text("El usuario es demasiado corto")
+            } else {
+
+                checkRegisterUser($("#userRegister").val(), function (usuarioValido) {
+                    if (usuarioValido) {
+                        $('#userExistCheck').removeClass("text-danger")
+                        $('#userExistCheck').addClass("text-success")
+                        $('#userExistCheck').text("El usuario es válido")
+                        userCheck = true;
+                    } else {
+                        $('#userExistCheck').removeClass("text-success")
+                        $('#userExistCheck').addClass("text-danger")
+                        $('#userExistCheck').text("Ese usuario ya existe")
+                        userCheck = false;
+                    }
+                });
+            }
             
         })
-      })
+        
+        // Comprobamos que el correo sea valido
+        $('#emailRegister').on('keyup',function () {
+            // Comprobamos que el correo tenga @
+            // Comprobamos que antes y despues del @ la longuitud no sea menor de 0
+            // Comprobamos que tiene . despues del @
+            // Comprobamos que antes y despues del . la longuitud no sea menor de 0
+            if ($('#emailRegister').val().includes("@") 
+            && $('#emailRegister').val().split("@")[0].length>0 
+            && $('#emailRegister').val().split("@")[1].length>0 
+
+            && $('#emailRegister').val().split("@")[1].includes(".")
+            && $('#emailRegister').val().split("@")[1].split(".")[0].length>0
+            && $('#emailRegister').val().split("@")[1].split(".")[1].length>0
+            
+            ) {
+             
+                $('#mailCheck').removeClass("text-danger")
+                $('#mailCheck').addClass("text-success")
+                $('#mailCheck').text("El correo es valido")
+                mailCheck = true
+            } else {
+                $('#mailCheck').removeClass("text-success")
+                $('#mailCheck').addClass("text-danger")
+                $('#mailCheck').text("El correo no es valido")
+                mailCheck = false
+            }
+        })
+
+        // Comprobamos seguridad de la password
+        
+        $('#passwordRegister1').on('keyup',function () {
+            if (checkPasswordStrong($('#passwordRegister1').val())) {
+                $('#passwordStrongCheck').removeClass("text-danger")
+                $('#passwordStrongCheck').addClass("text-success")
+                $('#passwordStrongCheck').text("La Contraseña es valida")
+            } else {
+                $('#passwordStrongCheck').removeClass("text-success")
+                $('#passwordStrongCheck').addClass("text-danger")
+                $('#passwordStrongCheck').text("La Contraseña es debil")
+            }
+
+        })
+
+        $('#passwordRegister2').on('keyup',function () {
+            if ($('#passwordRegister1').val() == $('#passwordRegister2').val() ) {
+                $('#passwordCheck').removeClass("text-danger")
+                $('#passwordCheck').addClass("text-success")
+                $('#passwordCheck').text("Las Contraseñas coinciden")
+                passCheck = true
+            } else {
+                $('#passwordCheck').removeClass("text-success")
+                $('#passwordCheck').addClass("text-danger")
+                $('#passwordCheck').text("Las Contraseñas no coinciden")
+                passCheck = false
+            }
+
+        })
+
+        $('#userRegister, #passwordRegister1, #passwordRegister2').on('keyup',function () {
+            if (userCheck && passCheck && mailCheck) {
+                $("#registrarme").prop("disabled", false)
+            } else {
+                $("#registrarme").prop("disabled", true)
+            }
+        })
+
+        $('body').on('click','#registrarme',function () {
+            let userToRegister = $("#userRegister").val()
+            let passToRegister = $('#passwordRegister1').val()
+            let mailToRegister = $('#emailRegister').val()
+            let nameToRegister = $('#nameRegister').val()
+            let lastNameToRegister = $('#lastNameRegister').val()
+
+            $.ajax({
+                url: './php/registerUser.php',
+                type: 'POST',
+                data: {"userToRegister": userToRegister,
+                    "passToRegister": passToRegister,
+                    "mailToRegister": mailToRegister,
+                    "nameToRegister": nameToRegister,
+                    "lastNameToRegister": lastNameToRegister
+                },
+                success: function (respuesta) {
+                    alert(respuesta)
+                    if (respuesta) {
+                        alert("Registro con exito!")
+                        $('#registerModal').modal('hide');
+                    } else {
+                        alert("ERROR EN EL REGISTRO :(")
+                    }
+                //    alert("Datos enviados " + respuesta);
+                    // alert(respuesta)
+                    // $(".filaArtistas").html("")
+                    // var infoEntradas = JSON.parse(respuesta);
+                    // $.each(infoEntradas, function (index, entrada) {
+                    //     // alert(entrada.butaca)
+        
+                    // })
+                    
+                },
+                error: function () {
+                console.log('Error al cargar el JSON');
+                }
+                });   
+
+        })
+    })
 
 
       
@@ -593,7 +733,35 @@ function accesoUsuario(user,pass) {
         });
 }
 
+// COMPROBAR SI EXISTE EL USUARIO PARA EL REGISTRO
+function checkRegisterUser(userToCheck,callback){
+    $.ajax({
+        url: './php/checkRegisterUser.php',
+        type: 'POST',
+        data: {"userToCheck": userToCheck,
+        },
+        success: function (respuesta) {
+            // alert(respuesta)
+            if (respuesta == "0" ) {
+                callback(true)
+             //EL USUARIO NO EXISTE
+                // $('#userExistCheck').removeClass("text-danger")
+                // $('#userExistCheck').addClass("text-success")
+                // $('#userExistCheck').text("El usuario es valido")
+            } else {
+                callback(false)
+                // $('#userExistCheck').removeClass("text-success")
+                // $('#userExistCheck').addClass("text-danger")
+                // $('#userExistCheck').text("Ese usuario ya existe")
+            }
 
+        },
+        error: function () {
+        console.log('Error al cargar el JSON');
+        callback(false)
+        }
+        });
+}
 
 
 // ESTA FUNCION SE ENCARGA DE OBTENER LAS CANCIONES DE BD Y MOSTRARLAS
@@ -764,4 +932,12 @@ function comprarEvento(idEventoReservado,idUsuarioEvReservado,butacaReservada,no
         console.log('Error al cargar el JSON');
         }
         });
+}
+
+function checkPasswordStrong(pass){
+    if (pass.length<=7) {
+        return false;
+    } else {
+        return true;
+    }
 }

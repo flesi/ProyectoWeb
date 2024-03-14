@@ -35,7 +35,9 @@
 
         <img src="images/database.png" alt=""/>
     
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Se pueden registrar nuevos usuarios
+    - ✅ Se pueden registrar nuevos usuarios
+    - ✅ Formulario de registro con comprobación de campos de forma dinamica
+    
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El usuario Administrador podrá gestionar los eventos, las canciones y los generos 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Los usuarios pueden editar configuracion basica del perfil
