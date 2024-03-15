@@ -17,12 +17,14 @@ $(function () {
         type: 'GET',
         success: function(respuesta) {
             $("#contenido").html(respuesta)
+            rememberUser()
             cargarCanciones()
             getEstilosMusica()
             generarTarjetasEventos(estiloActivo)
+            
         },
         error: function() {
-            alert("Error al cargar el JSON")
+            //alert("Error al cargar el JSON")
         }
     })    
 
@@ -50,7 +52,7 @@ $(function () {
 
             },
             error: function() {
-                alert("Error al cargar el JSON")
+                //alert("Error al cargar el JSON")
             }
         })    
     })
@@ -68,7 +70,7 @@ $(function () {
                 cargarEstadios()
             },
             error: function() {
-                alert("Error al cargar el JSON")
+                //alert("Error al cargar el JSON")
             }
         })    
     })
@@ -79,7 +81,7 @@ $(function () {
 // AUTOCOMPLETAR CUADRO DE BUSQUEDA
 
 $('body').on('click','#searchButton',function () {
-    alert($('#searchInput').val())
+    //alert($('#searchInput').val())
 })
     
 $('#searchInput').autocomplete({
@@ -105,10 +107,13 @@ $('#searchInput').autocomplete({
 
     $('body').on('click','#acceso',function () {
         $('#loginModal').modal('show');
+        $("#loginError").hide()
         $('body').off('click', '#entrar').on('click', '#entrar', function () {
             let user = $("#email").val().split("@")[0];
             let password = $("#password").val();
-            accesoUsuario(user, password);
+            let rememberme = $("#rememberme").prop('checked') == true
+            //alert(rememberme)
+            accesoUsuario(user, password,rememberme);
             idUsuario = ""
         });
       })
@@ -125,6 +130,18 @@ $('#searchInput').autocomplete({
             apellidoUsuario = ""
             imagenUsuario = ""
             rolUsuario = "invitado"
+
+            $.ajax({
+                url: 'php/logout.php',
+                type: 'POST',
+
+                success: function (respuesta) {
+                    //alert(respuesta)
+                },
+                error: function () {
+                console.log('Error al cargar el JSON');
+                }
+                });   
             
       })
 
@@ -172,13 +189,16 @@ $('#searchInput').autocomplete({
             // Comprobamos que antes y despues del @ la longuitud no sea menor de 0
             // Comprobamos que tiene . despues del @
             // Comprobamos que antes y despues del . la longuitud no sea menor de 0
+            
+
             if ($('#emailRegister').val().includes("@") 
-            && $('#emailRegister').val().split("@")[0].length>0 
-            && $('#emailRegister').val().split("@")[1].length>0 
+            && $('#emailRegister').val().split("@")[0].length>0
+            && $('#emailRegister').val().split("@")[1].length>0
+            
 
             && $('#emailRegister').val().split("@")[1].includes(".")
             && $('#emailRegister').val().split("@")[1].split(".")[0].length>0
-            && $('#emailRegister').val().split("@")[1].split(".")[1].length>0
+            && $('#emailRegister').val().split("@")[1].split(".")[1].length>1
             
             ) {
              
@@ -249,19 +269,19 @@ $('#searchInput').autocomplete({
                     "lastNameToRegister": lastNameToRegister
                 },
                 success: function (respuesta) {
-                    alert(respuesta)
+                    //alert(respuesta)
                     if (respuesta) {
-                        alert("Registro con exito!")
+                        //alert("Registro con exito!")
                         $('#registerModal').modal('hide');
                     } else {
-                        alert("ERROR EN EL REGISTRO :(")
+                        //alert("ERROR EN EL REGISTRO :(")
                     }
-                //    alert("Datos enviados " + respuesta);
-                    // alert(respuesta)
+                //    //alert("Datos enviados " + respuesta);
+                    // //alert(respuesta)
                     // $(".filaArtistas").html("")
                     // var infoEntradas = JSON.parse(respuesta);
                     // $.each(infoEntradas, function (index, entrada) {
-                    //     // alert(entrada.butaca)
+                    //     // //alert(entrada.butaca)
         
                     // })
                     
@@ -295,47 +315,14 @@ $('body').on('click','.btnGeneroMusical',function () {
 
       // GESTION DEL IFRAME DINAMICO CON LAS CANCIONES
 
-      // Carga la API de YouTube
-      let player;
-
-      if (!window.YT) {
-          let tag = document.createElement('script');
-          tag.src = "https://www.youtube.com/iframe_api";
-          let firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      }
-  
-      // Función de inicialización del reproductor
-      window.onYouTubeIframeAPIReady = function() {
-          player = new YT.Player('videoYT', {
-              height: '315',
-              width: '560',
-              events: {
-                  'onReady': onPlayerReady,
-                  'onStateChange': onPlayerStateChange
-              }
-          });
-  
-              // Función que se ejecuta cuando el reproductor está listo
-              function onPlayerReady(event) {
-                  event.target.playVideo();
-              }
-  
-              // Función que se ejecuta cuando el estado del reproductor cambia
-              function onPlayerStateChange(event) {
-                  // Aquí puedes agregar lógica adicional si es necesario
-              }
-  
-      }
-
       $('body').on('click','.cancion',function () {
         
         let videoYT = $(this).find(".videoURL").text(); // ID del video de YouTube
         // $('#videoYT').html(videoYT)
         // player.loadVideoById(videoId);
-        // alert($('#videoYT iframe').attr("src"))
+        // //alert($('#videoYT iframe').attr("src"))
         $('#videoYT iframe').attr("src",videoYT)
-        // alert($('#videoYT iframe').attr("src"))
+        // //alert($('#videoYT iframe').attr("src"))
       })
 
 
@@ -400,7 +387,7 @@ $('body').on('click','.btnGeneroMusical',function () {
                 
             },
             error: function() {
-                alert("Error al cargar el JSON")
+                //alert("Error al cargar el JSON")
             }
         })    
     })
@@ -414,7 +401,7 @@ $('body').on('click','.btnGeneroMusical',function () {
         let imagenArtistaReserva = $("#imagenArtista").attr("src")
         
         if (nombreReserva.length <= 0 ||apellidosReserva.length <= 0 ||butacaReserva.length <= 0) {
-            alert("Los datos no pueden estar vacios")
+            //alert("Los datos no pueden estar vacios")
         } else {
             $('.asiento').each(function () {
                 if ($(this).hasClass('seleccionado')) {
@@ -453,7 +440,7 @@ $('body').on('click','.btnGeneroMusical',function () {
                 })                
             }
             
-            alert(idEventoReservado + " | " +  idUsuarioEvReservado+ " | " +butacaReservada + " | " +nombreReserva + " | " +apellidoReserva)
+            //alert(idEventoReservado + " | " +  idUsuarioEvReservado+ " | " +butacaReservada + " | " +nombreReserva + " | " +apellidoReserva)
 
             comprarEvento(idEventoReservado,idUsuarioEvReservado,butacaReservada,nombreReserva,apellidoReserva)
         }
@@ -477,7 +464,7 @@ $('body').on('click','.btnGeneroMusical',function () {
     // 5: Ocupado -> El Asiento esta reservado por otro usuario (ROJO)
 
     $('body').on('click','.asiento',function () {
-        // alert($(this).hasClass("ocupado"))
+        // //alert($(this).hasClass("ocupado"))
         $('.asiento').each(function () {
             if($(this).hasClass("seleccionado")){
                 $(this).removeClass("seleccionado")
@@ -487,10 +474,10 @@ $('body').on('click','.btnGeneroMusical',function () {
 
         if(!$(this).hasClass("ocupado") && !$(this).hasClass("comprado")){
             $(this).addClass("seleccionado")
-            alert($(this).text())
+            //alert($(this).text())
             $('.butaca').text($(this).text())
         } else {
-            alert("Ese asiento ya esta ocupado!")
+            //alert("Ese asiento ya esta ocupado!")
         }
     })
 
@@ -550,12 +537,12 @@ function cargarInfoEntradas(idEvento){
         //     "edad":20
         // },
         success: function (respuesta) {
-        //    alert("Datos enviados " + respuesta);
-            // alert(respuesta)
+        //    //alert("Datos enviados " + respuesta);
+            // //alert(respuesta)
             // $(".filaArtistas").html("")
             var infoEntradas = JSON.parse(respuesta);
             $.each(infoEntradas, function (index, entrada) {
-                // alert(entrada.butaca)
+                // //alert(entrada.butaca)
                 $(".asiento").each(function () {
                     if ($(this).text() == entrada.butaca) {
                         if (entrada.id_usuario == idUsuario && idUsuario != 1 ) {
@@ -665,10 +652,10 @@ function cargarEstadios() {
             })
                 
             }
-            // alert(resultado)
+            // //alert(resultado)
         },
         error: function() {
-            alert("Error al cargar el JSON")
+            //alert("Error al cargar el JSON")
         }
     })
 
@@ -692,21 +679,22 @@ function cargarEstadios() {
 // OCULTA EL BOTON DE ACCESO, MUESTRA EL MENU DE USUARIO, MUESTRA EL NOMBRE DEL USUARIO Y
 // LA IMAGEN DEL USUARIO (BD) EN EL MENU
 // SI EL USUARIO TIENE EL ROL DE ADMINISTRADOR SE MUESTRA EL BOTON DE ADMINISTRAR
-function accesoUsuario(user,pass) {
+function rememberUser() {
     $.ajax({
-        url: 'php/getUser.php',
+        url: 'php/checkLoggedAndRemUser.php',
         type: 'POST',
-        data: {"user": user,
-            "password": pass,
-        },
+        // data: {"user": user,
+        //     "password": pass,
+        //     "remember": remember
+        // },
         success: function (respuesta) {
-            
+            //alert(respuesta)
             if (respuesta) {
-                // alert(respuesta)
+                // //alert(respuesta)
                 var datosUsuario = JSON.parse(respuesta);
                 $.each(datosUsuario, function (index, dato) {
                     idUsuario = dato.id_usuarios
-                    alert(idUsuario)
+                    //alert(idUsuario)
                     nombreUsuario = dato.nombre_usuario
                     apellidoUsuario = dato.apellido_usuario
                     imagenUsuario = dato.imagenUsuario
@@ -719,12 +707,64 @@ function accesoUsuario(user,pass) {
                 $("#logoUser").attr("src",imagenUsuario)
                 $("#acceso").hide()
                 $('#loginModal').modal('hide');
+                $("#loginError").hide()
                 if (rolUsuario=="administrador") {
                     $("#administrar").show()
                 }
                 
             } else {
-                alert("Usuario o contraseña incorrectos")
+                $("#loginError").show()
+            }
+        },
+        error: function () {
+        console.log('Error al cargar el JSON');
+        }
+        });
+}
+
+
+function accesoUsuario(user,pass,remember) {
+    $.ajax({
+        url: 'php/loginUser.php',
+        type: 'POST',
+        data: {"user": user,
+            "password": pass,
+            "remember": remember
+        },
+        success: function (respuesta) {
+            
+            if (respuesta) {
+                // //alert(respuesta)
+                var dato = JSON.parse(respuesta);
+                    idUsuario = dato.id_usuarios
+                    //alert(idUsuario)
+                    nombreUsuario = dato.nombre_usuario
+                    apellidoUsuario = dato.apellido_usuario
+                    imagenUsuario = dato.imagenUsuario
+                    rolUsuario = dato.rol_usuario
+                // var datosUsuario = JSON.parse(respuesta);
+                // $.each(datosUsuario, function (index, dato) {
+                //     idUsuario = dato.id_usuarios
+                //     //alert(idUsuario)
+                //     nombreUsuario = dato.nombre_usuario
+                //     apellidoUsuario = dato.apellido_usuario
+                //     imagenUsuario = dato.imagenUsuario
+                //     rolUsuario = dato.rol_usuario
+                // })
+                
+                $('#modalbtn').text($("#email").val().split("@")[0])
+                $(".dropdown-toggle span").text("Hola, " + $("#email").val().split("@")[0])
+                $("#menuUser").show()
+                $("#logoUser").attr("src",imagenUsuario)
+                $("#acceso").hide()
+                $('#loginModal').modal('hide');
+                $("#loginError").hide()
+                if (rolUsuario=="administrador") {
+                    $("#administrar").show()
+                }
+                
+            } else {
+                $("#loginError").show()
             }
         },
         error: function () {
@@ -741,7 +781,7 @@ function checkRegisterUser(userToCheck,callback){
         data: {"userToCheck": userToCheck,
         },
         success: function (respuesta) {
-            // alert(respuesta)
+            // //alert(respuesta)
             if (respuesta == "0" ) {
                 callback(true)
              //EL USUARIO NO EXISTE
@@ -777,8 +817,8 @@ function cargarCanciones() {
         //     "edad":20
         // },
         success: function (respuesta) {
-        //    alert("Datos enviados " + respuesta);
-            // alert(respuesta)
+        //    //alert("Datos enviados " + respuesta);
+            // //alert(respuesta)
             // $(".filaArtistas").html("")
             if (respuesta) {
                 var canciones = JSON.parse(respuesta);
@@ -843,8 +883,8 @@ function getEstilosMusica() {
         //     "edad":20
         // },
         success: function (respuesta) {
-        //    alert("Datos enviados " + respuesta);
-            // alert(respuesta)
+        //    //alert("Datos enviados " + respuesta);
+            // //alert(respuesta)
             // $(".filaArtistas").html("")
             var estilos = JSON.parse(respuesta);
             $.each(estilos, function (index, estilo) {
@@ -873,8 +913,8 @@ function generarTarjetasEventos(estilo) {
         //     "edad":20
         // },
         success: function (respuesta) {
-        //    alert("Datos enviados " + respuesta);
-            // alert(respuesta)
+        //    //alert("Datos enviados " + respuesta);
+            // //alert(respuesta)
             $(".filaArtistas").html("")
             if (respuesta) {
                 var eventos = JSON.parse(respuesta);
@@ -926,7 +966,7 @@ function comprarEvento(idEventoReservado,idUsuarioEvReservado,butacaReservada,no
             "apellidoReserva": apellidoReserva,
         },
         success: function (respuesta) {
-            alert(respuesta)
+            //alert(respuesta)
         },
         error: function () {
         console.log('Error al cargar el JSON');

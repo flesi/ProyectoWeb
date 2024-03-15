@@ -36,10 +36,13 @@
         <img src="images/database.png" alt=""/>
     
     - ✅ Se pueden registrar nuevos usuarios
+    - ✅ El usuario no tiene que hacer login si abre una nueva pestaña (Sesiones)
+    - ✅ La opción de recordar usuario es funcional (Cookies)
     - ✅ Formulario de registro con comprobación de campos de forma dinamica
-    
+    - ✅ Contenido Dockerizado
+
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> En la pagina Conciertos apareceran las entradas compradas 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El usuario Administrador podrá gestionar los eventos, las canciones y los generos 
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Los usuarios pueden editar configuracion basica del perfil
     - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> El Cuadro de busqueda es funcional
-    - <img src="images/clock-history.svg" alt="drawing" style="width:20px;"/> Contenido Dockerizado
+    
