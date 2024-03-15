@@ -14,7 +14,7 @@ services:
         image: mysql:8.0
         container_name: lamp-mysql
         ports: 
-            - "33:3306"
+            - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_DATABASE: musicex

@@ -9,10 +9,13 @@ $nombre_comprador = $_POST['nombreReserva'];
 $apellido_comprador= $_POST['apellidoReserva'];
 
 
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "musicex";
+// Conexión a la base de datos
+// $host = "localhost";
+// $username = "root";
+// $password = "";
+// $database = "musicex";
+require('conexionBD.php');
+
 $conn=mysqli_connect($host,$username,$password,$database);
 
 

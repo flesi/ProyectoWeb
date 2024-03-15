@@ -13,7 +13,7 @@ $(function () {
 
     // CARGAMOS HOME AL CARGAR LA PAGINA
     $.ajax({
-        url: './html/home.html',
+        url: 'html/home.html',
         type: 'GET',
         success: function(respuesta) {
             $("#contenido").html(respuesta)
@@ -40,7 +40,7 @@ $(function () {
     // ACCESO HOME
     $('body').on('click','#home',function () {
         $.ajax({
-            url: './html/home.html',
+            url: 'html/home.html',
             type: 'GET',
             success: function(respuesta) {
                 $("#contenido").html(respuesta)
@@ -61,7 +61,7 @@ $(function () {
     // ACCESO DESCUBRE
     $('body').on('click','#descubre',function () {
         $.ajax({
-            url: './html/descubre.html',
+            url: 'html/descubre.html',
             type: 'GET',
             success: function(respuesta) {
                 $("#contenido").html(respuesta)
@@ -83,7 +83,7 @@ $('body').on('click','#searchButton',function () {
 })
     
 $('#searchInput').autocomplete({
-    source: './php/autocompletar.php'
+    source: 'php/autocompletar.php'
 });
 
 
@@ -240,7 +240,7 @@ $('#searchInput').autocomplete({
             let lastNameToRegister = $('#lastNameRegister').val()
 
             $.ajax({
-                url: './php/registerUser.php',
+                url: 'php/registerUser.php',
                 type: 'POST',
                 data: {"userToRegister": userToRegister,
                     "passToRegister": passToRegister,
@@ -372,7 +372,7 @@ $('body').on('click','.btnGeneroMusical',function () {
     // PULSAMOS BOTON COMPRAR
     $('body').on('click','#comprar',function () {
         $.ajax({
-            url: './html/comprar.html',
+            url: 'html/comprar.html',
             type: 'GET',
             success: function(respuesta) {
                 $("#contenido").html(respuesta)
@@ -540,7 +540,7 @@ function eventoSeleccionadoParaComprar(tituloArtista,imagenArtista,lugarConciert
 // SI LA ENTRADA ESTA OCUPADA SE AÑADIRA AL CLASE OCUPADO
 function cargarInfoEntradas(idEvento){
     $.ajax({
-        url: './php/getInfoEvento.php',
+        url: 'php/getInfoEvento.php',
         type: 'POST',
         data: {"idEvento": idEvento,
             "getCantiones": "getCanciones"
@@ -612,7 +612,7 @@ function filaReserva(imagen, nombre, apellidos, butaca) {
 
 function cargarEstadios() {
     $.ajax({
-        url: './json/estadios.json',
+        url: 'json/estadios.json',
         type: 'GET',
         dataType: 'json',
         success: function(respuesta) {
@@ -694,7 +694,7 @@ function cargarEstadios() {
 // SI EL USUARIO TIENE EL ROL DE ADMINISTRADOR SE MUESTRA EL BOTON DE ADMINISTRAR
 function accesoUsuario(user,pass) {
     $.ajax({
-        url: './php/getUser.php',
+        url: 'php/getUser.php',
         type: 'POST',
         data: {"user": user,
             "password": pass,
@@ -736,7 +736,7 @@ function accesoUsuario(user,pass) {
 // COMPROBAR SI EXISTE EL USUARIO PARA EL REGISTRO
 function checkRegisterUser(userToCheck,callback){
     $.ajax({
-        url: './php/checkRegisterUser.php',
+        url: 'php/checkRegisterUser.php',
         type: 'POST',
         data: {"userToCheck": userToCheck,
         },
@@ -769,7 +769,7 @@ function checkRegisterUser(userToCheck,callback){
 
 function cargarCanciones() {
     $.ajax({
-        url: './php/getCanciones.php',
+        url: 'php/getCanciones.php',
         type: 'POST',
         // data: {"estilo": estilo},
         // data: {"estilo": estilo,
@@ -833,7 +833,7 @@ function cargarCanciones() {
 // OBTENER LOS DISTINOS GENEROS DE MUSICA
 function getEstilosMusica() {
     $.ajax({
-        url: './php/getEstilos.php',
+        url: 'php/getEstilos.php',
         type: 'POST',
         // data: {"idEvento": idEvento,
         //     "getCantiones": "getCanciones"
@@ -865,7 +865,7 @@ function getEstilosMusica() {
 function generarTarjetasEventos(estilo) {
     
     $.ajax({
-        url: './php/getMusicBD.php',
+        url: 'php/getMusicBD.php',
         type: 'POST',
         data: {"estilo": estilo},
         // data: {"estilo": estilo,
@@ -917,7 +917,7 @@ function generarTarjetasEventos(estilo) {
 // PAGINA COMPRAR RESERVAR ENTRADAS
 function comprarEvento(idEventoReservado,idUsuarioEvReservado,butacaReservada,nombreReserva,apellidoReserva) {
     $.ajax({
-        url: './php/comprarEntradas.php',
+        url: 'php/comprarEntradas.php',
         type: 'POST',
         data: {"idEventoReservado": idEventoReservado,
             "idUsuarioEvReservado": idUsuarioEvReservado,

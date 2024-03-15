@@ -1,9 +1,10 @@
 <?php
 // Conexión a la base de datos
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "musicex";
+// $host = "localhost";
+// $username = "root";
+// $password = "";
+// $database = "musicex";
+require('conexionBD.php');
 
 $conn=mysqli_connect($host,$username,$password,$database);
 

@@ -4,10 +4,13 @@ if (isset($_POST["userToCheck"])) {
     $user = $_POST["userToCheck"];
 
 
-    $host = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "musicex";
+// Conexión a la base de datos
+// $host = "localhost";
+// $username = "root";
+// $password = "";
+// $database = "musicex";
+require('conexionBD.php');
+
     $conn=mysqli_connect($host,$username,$password,$database);
 
 

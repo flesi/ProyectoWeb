@@ -6,10 +6,13 @@ $mailToRegister = $_POST["mailToRegister"];
 $nameToRegister = $_POST["nameToRegister"];
 $lastNameToRegister = $_POST["lastNameToRegister"];
 
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "musicex";
+// Conexión a la base de datos
+// $host = "localhost";
+// $username = "root";
+// $password = "";
+// $database = "musicex";
+require('conexionBD.php');
+
 $conn=mysqli_connect($host,$username,$password,$database);
 
 // $sql = "INSERT INTO `usuarios` (`user`, `password`, `nombre_usuario`, `apellido_usuario`, `correo_usuario`, `telefono_usuario`, `direccion_usuario`, `imagenUsuario`, `rol_usuario`) VALUES (?, ?, ?, ?, ?, NULL, NULL, \'images/users/default.jpg\', NULL);";

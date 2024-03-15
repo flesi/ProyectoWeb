@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2024 a las 02:24:20
+-- Tiempo de generación: 15-03-2024 a las 01:14:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -233,12 +233,13 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nombre_usuario` varchar(55) NOT NULL,
   `apellido_usuario` varchar(55) NOT NULL,
   `correo_usuario` varchar(55) NOT NULL,
-  `telefono_usuario` int(11) NOT NULL,
-  `direccion_usuario` varchar(100) NOT NULL,
+  `telefono_usuario` int(11) DEFAULT NULL,
+  `direccion_usuario` varchar(100) DEFAULT NULL,
   `imagenUsuario` varchar(255) NOT NULL DEFAULT 'images/users/default.jpg',
-  `rol_usuario` enum('usuario','administrador','','') DEFAULT NULL,
-  PRIMARY KEY (`id_usuarios`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `rol_usuario` enum('usuario','administrador','','') DEFAULT 'usuario',
+  PRIMARY KEY (`id_usuarios`),
+  UNIQUE KEY `user` (`user`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -247,7 +248,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 INSERT INTO `usuarios` (`id_usuarios`, `user`, `password`, `nombre_usuario`, `apellido_usuario`, `correo_usuario`, `telefono_usuario`, `direccion_usuario`, `imagenUsuario`, `rol_usuario`) VALUES
 (1, 'invitado', '1234', 'invitado', 'Romero', 'flesiking@gmail.com', 0, '', '', ''),
 (2, 'rocio', '1234', 'Rocio', 'LLera', '', 0, '', 'images/users/default.jpg', 'usuario'),
-(3, 'pepe', '1234', 'Jose Luis', 'Romero', 'flesiking@gmail.com', 617290920, 'C/Falsa 123', 'images/users/01.jpg', 'administrador');
+(3, 'pepe', '1234', 'Jose Luis', 'Romero', 'flesiking@gmail.com', 617290920, 'C/Falsa 123', 'images/users/01.jpg', 'administrador'),
+(4, 'macarro', 'fsdf', '', '', '', 0, '', 'images/users/default.jpg', 'usuario'),
+(5, 'fsddda', 'fsddfs', '', '', '', NULL, NULL, 'images/users/default.jpg', 'usuario'),
+(6, 'pepelu', 'marihuana', 'pepelu@md.com', 'pepelu', 'romero', NULL, NULL, 'images/users/default.jpg', 'usuario'),
+(7, 'shiro', 'croquetas', 'shiro@perro.com', 'shiro', 'dog', NULL, NULL, 'images/users/default.jpg', 'usuario'),
+(8, 'wanda', 'salchichas', 'wanda@perro.com', 'wanda', 'dog', NULL, NULL, 'images/users/default.jpg', 'usuario'),
+(9, 'prueba2', 'salchichas', 'wanda@perro.com', 'wanda', 'dog', NULL, NULL, 'images/users/default.jpg', 'usuario'),
+(10, 'prueba3', 'salchichas', 'wanda@perro.com', 'wanda', 'dog', NULL, NULL, 'images/users/default.jpg', 'usuario'),
+(13, 'wandaa', 'marihuana', 'wanda@perro.com', 'wanda', 'dog', NULL, NULL, 'images/users/default.jpg', 'usuario');
 
 --
 -- Restricciones para tablas volcadas
