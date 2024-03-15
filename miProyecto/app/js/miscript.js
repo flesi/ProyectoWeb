@@ -695,6 +695,7 @@ function rememberUser() {
                 $.each(datosUsuario, function (index, dato) {
                     idUsuario = dato.id_usuarios
                     //alert(idUsuario)
+                    user = dato.user
                     nombreUsuario = dato.nombre_usuario
                     apellidoUsuario = dato.apellido_usuario
                     imagenUsuario = dato.imagenUsuario
@@ -702,7 +703,7 @@ function rememberUser() {
                 })
                 
                 $('#modalbtn').text($("#email").val().split("@")[0])
-                $(".dropdown-toggle span").text("Hola, " + $("#email").val().split("@")[0])
+                $(".dropdown-toggle span").text("Hola, " + user )
                 $("#menuUser").show()
                 $("#logoUser").attr("src",imagenUsuario)
                 $("#acceso").hide()
